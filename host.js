@@ -630,6 +630,76 @@ function showOfflineResults() {
     for (let i = 0; i < 5; i++) setTimeout(() => spawnConfetti(40), i * 400);
 }
 
+// ===== SKIP & ABORT =====
+
+function skipQuestion() {
+    stopTimer();
+
+    if (isLiveMode) {
+        roomRef.child('currentAnswers').off();
+
+        // Push skip state so players see feedback
+        const playerIds = Object.keys(livePlayers);
+        let answerResults = {};
+        playerIds.forEach(pid => {
+            answerResults[pid] = { correct: false, timeout: true, points: 0, skipped: true };
+        });
+
+        const scoresObj = {};
+        playerIds.forEach(pid => {
+            scoresObj[pid] = {
+                name: livePlayers[pid].name,
+                score: livePlayers[pid].score,
+                correct: livePlayers[pid].correct,
+                wrong: livePlayers[pid].wrong,
+                timeout: livePlayers[pid].timeout
+            };
+        });
+
+        roomRef.update({
+            state: 'reveal',
+            correctAnswer: gameQuestions[currentQIndex].allCorrect ? -1 : gameQuestions[currentQIndex].correct,
+            allCorrect: gameQuestions[currentQIndex].allCorrect || false,
+            answerResults: answerResults,
+            scores: scoresObj
+        });
+
+        liveAnswers = {};
+
+        setTimeout(() => {
+            currentQIndex++;
+            if (currentQIndex >= gameQuestions.length) showLiveResults();
+            else showLiveQuestion();
+        }, 1500);
+    } else {
+        // Offline skip
+        offlineCurrentPlayer = (offlineCurrentPlayer + 1) % offlinePlayers.length;
+        currentQIndex++;
+        if (currentQIndex >= gameQuestions.length) showOfflineResults();
+        else showOfflineQuestion();
+    }
+}
+
+function abortQuiz() {
+    stopTimer();
+
+    if (isLiveMode) {
+        roomRef.child('currentAnswers').off();
+        // Show results with current scores
+        if (Object.keys(livePlayers).length > 0) {
+            showLiveResults();
+        } else {
+            backToStart();
+        }
+    } else {
+        if (offlinePlayers.length > 0 && offlinePlayers.some(p => p.score > 0 || p.correct > 0 || p.wrong > 0)) {
+            showOfflineResults();
+        } else {
+            backToStart();
+        }
+    }
+}
+
 // ===== NAVIGATION =====
 
 function backToStart() {

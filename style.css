@@ -707,6 +707,43 @@ body::before {
     75% { transform: translateX(8px); }
 }
 
+/* ===== QUIZ CONTROLS ===== */
+.quiz-controls {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.btn-control {
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    background: var(--card-bg);
+    color: var(--text-secondary);
+}
+
+.btn-control:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.btn-abort:hover {
+    border-color: #f5576c;
+    color: #f5576c;
+}
+
+.btn-skip:hover {
+    border-color: #4facfe;
+    color: #4facfe;
+}
+
 /* ===== SCOREBOARD ===== */
 .scoreboard {
     width: 200px;
