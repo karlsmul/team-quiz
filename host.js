@@ -138,14 +138,8 @@ function startLiveQuiz() {
     });
     if (config.categories.length === 0) config.categories = ['custom'];
 
-    // Build questions
-    let pool = [];
-    config.categories.forEach(cat => {
-        if (QUESTIONS[cat]) {
-            pool = pool.concat(QUESTIONS[cat].map(q => ({ ...q, category: cat })));
-        }
-    });
-    gameQuestions = shuffleArray(pool).slice(0, config.questionCount);
+    // Build questions (team questions prioritized — every other question)
+    gameQuestions = buildQuestionList(config.categories, config.questionCount);
     currentQIndex = 0;
 
     // Reset player scores
@@ -511,11 +505,7 @@ function startOfflineQuiz() {
     offlinePlayers.forEach(p => { p.score = 0; p.correct = 0; p.wrong = 0; p.timeout = 0; });
     offlineCurrentPlayer = 0;
 
-    let pool = [];
-    config.categories.forEach(cat => {
-        if (QUESTIONS[cat]) pool = pool.concat(QUESTIONS[cat].map(q => ({ ...q, category: cat })));
-    });
-    gameQuestions = shuffleArray(pool).slice(0, config.questionCount);
+    gameQuestions = buildQuestionList(config.categories, config.questionCount);
     currentQIndex = 0;
 
     showOfflineQuestion();
@@ -737,6 +727,50 @@ function adjustCount(delta) {
 
 function toggleCategory(btn) {
     btn.classList.toggle('active');
+}
+
+// ===== QUESTION BUILDER (Team-Fragen bevorzugt) =====
+
+function buildQuestionList(categories, count) {
+    // Split into team questions and other questions
+    let teamPool = [];
+    let otherPool = [];
+
+    categories.forEach(cat => {
+        if (!QUESTIONS[cat]) return;
+        const questions = QUESTIONS[cat].map(q => ({ ...q, category: cat }));
+        if (cat === 'team') {
+            teamPool = teamPool.concat(questions);
+        } else {
+            otherPool = otherPool.concat(questions);
+        }
+    });
+
+    teamPool = shuffleArray(teamPool);
+    otherPool = shuffleArray(otherPool);
+
+    // If no team questions selected, just shuffle everything
+    if (teamPool.length === 0) {
+        return shuffleArray(otherPool).slice(0, count);
+    }
+
+    // Interleave: every other slot is a team question (until team pool is exhausted)
+    const result = [];
+    let tIdx = 0;
+    let oIdx = 0;
+
+    for (let i = 0; i < count; i++) {
+        if (tIdx < teamPool.length && (i % 2 === 0 || oIdx >= otherPool.length)) {
+            // Even slots → team question (as long as available)
+            result.push(teamPool[tIdx++]);
+        } else if (oIdx < otherPool.length) {
+            result.push(otherPool[oIdx++]);
+        } else {
+            break; // No more questions
+        }
+    }
+
+    return result;
 }
 
 // ===== UTILITIES =====
