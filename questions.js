@@ -87,7 +87,7 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "Promis/New York.jpg",
+            image: "Städte/New York.jpg",
             answers: ["Los Angeles", "Chicago", "New York", "Las Vegas"],
             correct: 2
         },
@@ -105,7 +105,7 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Brandenburger_Tor_abends.jpg/960px-Brandenburger_Tor_abends.jpg",
+            image: "Städte/Berlin.jpeg",
             answers: ["München", "Berlin", "Hamburg", "Wien"],
             correct: 1
         },
@@ -129,13 +129,13 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "Promis/Tokio.jpg",
+            image: "Städte/Tokio.jpg",
             answers: ["Seoul", "Shanghai", "Tokio", "Hongkong"],
             correct: 2
         },
         {
             question: "Welche Stadt ist das?",
-            image: "Promis/San Francisco.jpg",
+            image: "Städte/San Francisco.jpg",
             answers: ["Los Angeles", "San Francisco", "Seattle", "San Diego"],
             correct: 1
         },
@@ -153,7 +153,7 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "Promis/München.jpg",
+            image: "Städte/München.jpg",
             answers: ["Stuttgart", "München", "Nürnberg", "Salzburg"],
             correct: 1
         }
