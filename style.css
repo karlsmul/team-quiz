@@ -113,6 +113,7 @@ body::before {
     width: 100%;
     max-width: 500px;
     box-shadow: var(--shadow);
+    margin-bottom: 1rem;
 }
 
 .setting {
@@ -176,6 +177,94 @@ body::before {
     transform: scale(1.1);
 }
 
+/* ===== PLAYER INPUT ===== */
+.player-input-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.player-input-row input {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: var(--card-bg-solid);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.player-input-row input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.player-input-row input:focus {
+    border-color: #f093fb;
+}
+
+.btn-add-player {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-add-player:hover {
+    transform: scale(1.1);
+}
+
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.player-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid;
+    font-weight: 700;
+    font-size: 0.9rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.player-tag-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.player-remove {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0 0.2rem;
+    transition: color 0.2s;
+}
+
+.player-remove:hover {
+    color: #f5576c;
+}
+
 /* ===== CATEGORY TOGGLES ===== */
 .category-toggles {
     display: flex;
@@ -209,7 +298,7 @@ body::before {
 
 /* ===== START BUTTON ===== */
 .btn-start {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 1rem 3rem;
     font-size: 1.3rem;
     font-family: 'Fredoka One', cursive;
@@ -245,9 +334,13 @@ body::before {
 }
 
 /* ===== QUIZ SCREEN ===== */
+.quiz-top {
+    width: 100%;
+    max-width: 900px;
+}
+
 .quiz-header {
     width: 100%;
-    max-width: 700px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -274,16 +367,29 @@ body::before {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.score-display {
+.player-turn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: 'Fredoka One', cursive;
-    font-size: 1.3rem;
-    color: #fee140;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.player-score-badge {
+    background: linear-gradient(135deg, #fee140, #fa709a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.2rem;
 }
 
 /* ===== TIMER ===== */
 .timer-bar-container {
     width: 100%;
-    max-width: 700px;
     height: 6px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 3px;
@@ -312,6 +418,7 @@ body::before {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     transition: color 0.3s;
+    text-align: center;
 }
 
 .timer-display.warning {
@@ -328,6 +435,20 @@ body::before {
     50% { transform: scale(1.15); }
 }
 
+/* ===== QUIZ BODY LAYOUT ===== */
+.quiz-body {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    align-items: flex-start;
+}
+
+.quiz-main {
+    flex: 1;
+    min-width: 0;
+}
+
 /* ===== QUESTION CARD ===== */
 .question-card {
     background: var(--card-bg);
@@ -336,7 +457,6 @@ body::before {
     border-radius: 24px;
     padding: 2rem;
     width: 100%;
-    max-width: 700px;
     text-align: center;
     box-shadow: var(--shadow);
     margin-bottom: 1.5rem;
@@ -370,7 +490,6 @@ body::before {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     width: 100%;
-    max-width: 700px;
 }
 
 .answer-btn {
@@ -420,6 +539,7 @@ body::before {
 .answer-btn.correct {
     background: rgba(67, 233, 123, 0.3) !important;
     border-color: var(--correct) !important;
+    opacity: 1 !important;
     animation: correctPop 0.5s ease;
 }
 
@@ -459,6 +579,45 @@ body::before {
     75% { transform: translateX(8px); }
 }
 
+/* ===== SCOREBOARD (SIDEBAR) ===== */
+.scoreboard {
+    width: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.scoreboard-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.scoreboard-entry.active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
+}
+
+.sb-name {
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+.sb-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #fee140;
+}
+
 /* ===== RESULT SCREEN ===== */
 .result-card {
     background: var(--card-bg);
@@ -470,9 +629,10 @@ body::before {
     max-width: 500px;
     text-align: center;
     box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
 }
 
-.result-emoji {
+.trophy-animation {
     font-size: 5rem;
     margin-bottom: 1rem;
     animation: bounce 1s ease infinite;
@@ -483,64 +643,98 @@ body::before {
     50% { transform: translateY(-15px); }
 }
 
-.result-card h2 {
+.winner-title {
     font-family: 'Fredoka One', cursive;
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
 }
 
-.result-score {
+.winner-name {
     font-family: 'Fredoka One', cursive;
-    font-size: 3rem;
+    font-size: 2.5rem;
     background: linear-gradient(135deg, #fee140, #fa709a);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-.result-bar-container {
-    width: 100%;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-}
-
-.result-bar {
-    height: 100%;
-    border-radius: 6px;
-    background: linear-gradient(90deg, #43e97b, #38f9d7);
-    transition: width 1.5s ease-out;
-    width: 0%;
-}
-
-.result-message {
-    font-size: 1.1rem;
+.winner-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
 }
 
-.result-stats {
-    display: flex;
-    justify-content: space-around;
-    gap: 1rem;
+.winner-score span {
+    color: #fee140;
 }
 
-.stat {
+/* ===== RANKING ===== */
+.ranking-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: var(--shadow);
+}
+
+.ranking-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.ranking-list {
     display: flex;
     flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ranking-entry {
+    display: flex;
     align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    animation: fadeIn 0.5s ease both;
 }
 
-.stat-number {
+.ranking-entry.winner {
+    background: rgba(254, 225, 64, 0.1);
+    border: 1px solid rgba(254, 225, 64, 0.3);
+}
+
+.ranking-medal {
+    font-size: 1.5rem;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.ranking-name {
+    font-weight: 900;
+    font-size: 1.1rem;
+    flex: 1;
+}
+
+.ranking-details {
+    text-align: right;
+}
+
+.ranking-score {
     font-family: 'Fredoka One', cursive;
-    font-size: 2rem;
+    font-size: 1rem;
+    color: #fee140;
+    display: block;
 }
 
-.stat-label {
-    font-size: 0.85rem;
+.ranking-stats {
+    font-size: 0.75rem;
     color: var(--text-secondary);
 }
 
@@ -576,6 +770,23 @@ body::before {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .quiz-body {
+        flex-direction: column;
+    }
+
+    .scoreboard {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .scoreboard-entry {
+        flex: 1;
+        min-width: 100px;
+    }
+}
+
 @media (max-width: 600px) {
     .logo {
         font-size: 2.2rem;
@@ -605,45 +816,21 @@ body::before {
         font-size: 2rem;
     }
 
-    .result-stats {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
     .btn-start {
         padding: 0.8rem 2rem;
         font-size: 1.1rem;
     }
+
+    .winner-name {
+        font-size: 1.8rem;
+    }
+
+    .player-turn {
+        font-size: 0.9rem;
+    }
 }
 
-/* ===== TRANSITION OVERLAY ===== */
-.transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 500;
-    animation: fadeIn 0.3s ease;
-}
-
-.transition-text {
-    font-family: 'Fredoka One', cursive;
-    font-size: 4rem;
-    color: white;
-    animation: zoomIn 0.5s ease;
-}
-
-@keyframes zoomIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-/* Feedback overlay */
+/* ===== FEEDBACK OVERLAY ===== */
 .feedback-overlay {
     position: fixed;
     top: 0;

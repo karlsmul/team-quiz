@@ -3,16 +3,15 @@
 let config = {
     timerSeconds: 10,
     questionCount: 10,
-    categories: ['animals', 'cities', 'celebrities', 'custom']
+    categories: ['team', 'animals', 'cities', 'celebrities', 'custom']
 };
+
+let players = []; // { name, score, correct, wrong, timeout }
+let currentPlayerIndex = 0;
 
 let state = {
     questions: [],
     currentIndex: 0,
-    score: 0,
-    correct: 0,
-    wrong: 0,
-    timeout: 0,
     timer: null,
     timerInterval: null,
     timeLeft: 0,
@@ -39,9 +38,55 @@ function toggleCategory(btn) {
     btn.classList.toggle('active');
 }
 
+// ===== PLAYER MANAGEMENT =====
+
+function addPlayer() {
+    const input = document.getElementById('player-name-input');
+    const name = input.value.trim();
+    if (!name) return;
+
+    // Prevent duplicates
+    if (players.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+        input.value = '';
+        return;
+    }
+
+    players.push({ name, score: 0, correct: 0, wrong: 0, timeout: 0 });
+    input.value = '';
+    renderPlayerList();
+    updateStartButton();
+}
+
+function removePlayer(index) {
+    players.splice(index, 1);
+    renderPlayerList();
+    updateStartButton();
+}
+
+function renderPlayerList() {
+    const list = document.getElementById('player-list');
+    const playerColors = ['#f093fb', '#4facfe', '#43e97b', '#fee140', '#fa709a', '#38f9d7', '#667eea', '#f5576c'];
+
+    list.innerHTML = players.map((p, i) => `
+        <div class="player-tag" style="border-color: ${playerColors[i % playerColors.length]}">
+            <span class="player-tag-color" style="background: ${playerColors[i % playerColors.length]}"></span>
+            <span>${p.name}</span>
+            <button class="player-remove" onclick="removePlayer(${i})">&times;</button>
+        </div>
+    `).join('');
+}
+
+function updateStartButton() {
+    const btn = document.querySelector('.btn-start');
+    btn.disabled = players.length === 0;
+    btn.style.opacity = players.length === 0 ? '0.5' : '1';
+}
+
 // ===== QUIZ START =====
 
 function startQuiz() {
+    if (players.length === 0) return;
+
     // Read settings
     config.timerSeconds = parseInt(document.getElementById('timer-setting').value);
     config.questionCount = parseInt(document.getElementById('question-count').value);
@@ -55,6 +100,14 @@ function startQuiz() {
         document.querySelector('[data-cat="custom"]').classList.add('active');
     }
 
+    // Reset player scores
+    players.forEach(p => {
+        p.score = 0;
+        p.correct = 0;
+        p.wrong = 0;
+        p.timeout = 0;
+    });
+
     // Build question pool
     let pool = [];
     config.categories.forEach(cat => {
@@ -66,10 +119,7 @@ function startQuiz() {
     // Shuffle and pick
     state.questions = shuffleArray(pool).slice(0, config.questionCount);
     state.currentIndex = 0;
-    state.score = 0;
-    state.correct = 0;
-    state.wrong = 0;
-    state.timeout = 0;
+    currentPlayerIndex = 0;
 
     switchScreen('quiz-screen');
     showQuestion();
@@ -84,15 +134,20 @@ function showQuestion() {
     // Update header
     document.getElementById('question-number').textContent =
         `${state.currentIndex + 1}/${state.questions.length}`;
-    document.getElementById('score').textContent = state.score;
 
     const categoryLabels = {
+        team: '💼 Team',
         animals: '🐾 Tiere',
         cities: '🏙️ Städte',
         celebrities: '⭐ Promis',
         custom: '🎲 Allgemein'
     };
     document.getElementById('category-badge').textContent = categoryLabels[q.category] || q.category;
+
+    // Current player indicator
+    const currentPlayer = players[currentPlayerIndex];
+    document.getElementById('current-player').textContent = currentPlayer.name;
+    document.getElementById('current-player-score').textContent = currentPlayer.score;
 
     // Image
     const imgContainer = document.getElementById('question-image-container');
@@ -126,8 +181,28 @@ function showQuestion() {
     card.offsetHeight; // Trigger reflow
     card.style.animation = 'fadeIn 0.4s ease-out';
 
+    // Update scoreboard
+    renderScoreboard();
+
     // Start timer
     startTimer();
+}
+
+// ===== SCOREBOARD =====
+
+function renderScoreboard() {
+    const container = document.getElementById('scoreboard');
+    const playerColors = ['#f093fb', '#4facfe', '#43e97b', '#fee140', '#fa709a', '#38f9d7', '#667eea', '#f5576c'];
+    const sorted = [...players].sort((a, b) => b.score - a.score);
+
+    container.innerHTML = sorted.map((p, i) => {
+        const colorIndex = players.indexOf(p);
+        const isActive = players.indexOf(p) === currentPlayerIndex;
+        return `<div class="scoreboard-entry ${isActive ? 'active' : ''}" style="border-left: 3px solid ${playerColors[colorIndex % playerColors.length]}">
+            <span class="sb-name">${p.name}</span>
+            <span class="sb-score">${p.score}</span>
+        </div>`;
+    }).join('');
 }
 
 // ===== ANSWER HANDLING =====
@@ -139,27 +214,40 @@ function selectAnswer(index) {
 
     const q = state.questions[state.currentIndex];
     const buttons = document.querySelectorAll('.answer-btn');
-    const isCorrect = index === q.correct;
+    const currentPlayer = players[currentPlayerIndex];
+
+    // Check if all answers are correct (special question type)
+    const isCorrect = q.allCorrect || index === q.correct;
 
     // Disable all buttons
     buttons.forEach(btn => btn.classList.add('disabled'));
 
-    // Mark correct answer
-    buttons[q.correct].classList.add('correct');
+    if (q.allCorrect) {
+        // All answers are correct — mark them all green
+        buttons.forEach(btn => btn.classList.add('correct'));
+    } else {
+        // Mark the correct answer
+        buttons[q.correct].classList.add('correct');
+    }
 
     if (isCorrect) {
-        state.score += calculatePoints();
-        state.correct++;
+        const points = calculatePoints();
+        currentPlayer.score += points;
+        currentPlayer.correct++;
         showFeedback('✅');
         spawnConfetti(15);
     } else {
         buttons[index].classList.add('wrong');
-        state.wrong++;
+        currentPlayer.wrong++;
         showFeedback('❌');
     }
 
+    // Update scoreboard immediately
+    renderScoreboard();
+    document.getElementById('current-player-score').textContent = currentPlayer.score;
+
     // Next question after delay
-    setTimeout(() => nextQuestion(), 1800);
+    setTimeout(() => nextQuestion(), 2000);
 }
 
 function timeoutAnswer() {
@@ -168,18 +256,23 @@ function timeoutAnswer() {
 
     const q = state.questions[state.currentIndex];
     const buttons = document.querySelectorAll('.answer-btn');
+    const currentPlayer = players[currentPlayerIndex];
 
     buttons.forEach(btn => btn.classList.add('disabled'));
-    buttons[q.correct].classList.add('correct');
 
-    state.timeout++;
+    if (q.allCorrect) {
+        buttons.forEach(btn => btn.classList.add('correct'));
+    } else {
+        buttons[q.correct].classList.add('correct');
+    }
+
+    currentPlayer.timeout++;
     showFeedback('⏰');
 
-    setTimeout(() => nextQuestion(), 1800);
+    setTimeout(() => nextQuestion(), 2000);
 }
 
 function calculatePoints() {
-    // More points for faster answers
     const timeBonus = Math.ceil((state.timeLeft / config.timerSeconds) * 100);
     return 100 + timeBonus;
 }
@@ -208,7 +301,6 @@ function startTimer() {
         timerBar.style.width = (fraction * 100) + '%';
         timerDisplay.textContent = Math.ceil(state.timeLeft);
 
-        // Color changes
         if (fraction <= 0.25) {
             timerBar.className = 'timer-bar danger';
             timerDisplay.className = 'timer-display danger';
@@ -234,6 +326,9 @@ function stopTimer() {
 // ===== NAVIGATION =====
 
 function nextQuestion() {
+    // Rotate to next player
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
     state.currentIndex++;
     if (state.currentIndex >= state.questions.length) {
         showResults();
@@ -247,48 +342,41 @@ function nextQuestion() {
 function showResults() {
     switchScreen('result-screen');
 
-    const total = state.questions.length;
-    const percent = Math.round((state.correct / total) * 100);
+    // Sort players by score (descending)
+    const sorted = [...players].sort((a, b) => b.score - a.score);
+    const winner = sorted[0];
 
-    document.getElementById('final-score').textContent = state.score;
-    document.getElementById('total-questions').textContent = total;
-    document.getElementById('stat-correct').textContent = state.correct;
-    document.getElementById('stat-wrong').textContent = state.wrong;
-    document.getElementById('stat-timeout').textContent = state.timeout;
+    // Winner display
+    document.getElementById('winner-name').textContent = winner.name;
+    document.getElementById('winner-score').textContent = winner.score;
 
-    // Result message & emoji
-    let emoji, title, message;
-    if (percent >= 90) {
-        emoji = '🏆'; title = 'Unglaublich!'; message = 'Du bist ein Quiz-Champion!';
-    } else if (percent >= 70) {
-        emoji = '🎉'; title = 'Super gemacht!'; message = 'Sehr beeindruckend!';
-    } else if (percent >= 50) {
-        emoji = '😊'; title = 'Gut gemacht!'; message = 'Da geht noch mehr!';
-    } else if (percent >= 30) {
-        emoji = '💪'; title = 'Nicht schlecht!'; message = 'Übung macht den Meister!';
-    } else {
-        emoji = '🤔'; title = 'Nächstes Mal!'; message = 'Beim nächsten Mal wird\'s besser!';
-    }
+    // Podium / Ranking
+    const rankingContainer = document.getElementById('ranking-list');
+    const medals = ['🥇', '🥈', '🥉'];
+    const playerColors = ['#f093fb', '#4facfe', '#43e97b', '#fee140', '#fa709a', '#38f9d7', '#667eea', '#f5576c'];
 
-    document.getElementById('result-emoji').textContent = emoji;
-    document.getElementById('result-title').textContent = title;
-    document.getElementById('result-message').textContent = message;
+    rankingContainer.innerHTML = sorted.map((p, i) => {
+        const colorIndex = players.indexOf(p);
+        const medal = medals[i] || `${i + 1}.`;
+        return `
+            <div class="ranking-entry ${i === 0 ? 'winner' : ''}" style="animation-delay: ${i * 0.15}s">
+                <span class="ranking-medal">${medal}</span>
+                <span class="ranking-name">${p.name}</span>
+                <div class="ranking-details">
+                    <span class="ranking-score">${p.score} Punkte</span>
+                    <span class="ranking-stats">✅ ${p.correct} &nbsp; ❌ ${p.wrong} &nbsp; ⏰ ${p.timeout}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
 
-    // Animate result bar
-    setTimeout(() => {
-        document.getElementById('result-bar').style.width = percent + '%';
-    }, 300);
-
-    // Confetti for good results
-    if (percent >= 50) {
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => spawnConfetti(30), i * 500);
-        }
+    // Big confetti for the winner
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => spawnConfetti(40), i * 400);
     }
 }
 
 function restartQuiz() {
-    document.getElementById('result-bar').style.width = '0%';
     switchScreen('start-screen');
 }
 
@@ -345,12 +433,22 @@ function shuffleArray(array) {
 // ===== KEYBOARD SUPPORT =====
 
 document.addEventListener('keydown', (e) => {
-    if (!document.getElementById('quiz-screen').classList.contains('active')) return;
-    if (state.answered) return;
+    if (document.getElementById('quiz-screen').classList.contains('active')) {
+        if (state.answered) return;
+        const keyMap = { '1': 0, '2': 1, '3': 2, '4': 3, 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+        const index = keyMap[e.key.toLowerCase()];
+        if (index !== undefined) {
+            selectAnswer(index);
+        }
+    }
 
-    const keyMap = { '1': 0, '2': 1, '3': 2, '4': 3, 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
-    const index = keyMap[e.key.toLowerCase()];
-    if (index !== undefined) {
-        selectAnswer(index);
+    // Enter to add player on start screen
+    if (document.getElementById('start-screen').classList.contains('active')) {
+        if (e.key === 'Enter' && document.activeElement.id === 'player-name-input') {
+            addPlayer();
+        }
     }
 });
+
+// ===== INIT =====
+updateStartButton();

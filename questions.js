@@ -36,11 +36,9 @@ const QUESTIONS = {
         },
         {
             question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGatebridge-001.jpg/1200px-GoldenGatebridge-001.jpg",
-            answers: ["Elefant", "Nashorn", "Nilpferd", "Giraffe"],
-            correct: 0,
-            // Placeholder — will be replaced with proper image
-            _note: "Replace with elephant image"
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg/1200px-African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg",
+            answers: ["Elefant", "Nashorn", "Nilpferd", "Mammut"],
+            correct: 0
         },
         {
             question: "Welches Tier siehst du hier?",
@@ -158,8 +156,8 @@ const QUESTIONS = {
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head_Cleaned_N_Brightened.jpg/800px-Albert_Einstein_Head_Cleaned_N_Brightened.jpg",
-            answers: ["Max Planck", "Albert Einstein", "Niels Bohr", "Werner Heisenberg"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Bundesarchiv_Bild_183-D0116-0041-019%2C_Bundesarchiv_Otto_von_Bismarck.jpg/800px-Bundesarchiv_Bild_183-D0116-0041-019%2C_Bundesarchiv_Otto_von_Bismarck.jpg",
+            answers: ["Kaiser Wilhelm", "Otto von Bismarck", "Friedrich der Große", "Hindenburg"],
             correct: 1
         },
         {
@@ -202,6 +200,55 @@ const QUESTIONS = {
             question: "Wer ist diese Person?",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Angela_Merkel_2019_%28cropped%29.jpg/800px-Angela_Merkel_2019_%28cropped%29.jpg",
             answers: ["Ursula von der Leyen", "Angela Merkel", "Annalena Baerbock", "Hillary Clinton"],
+            correct: 1
+        }
+    ],
+
+    team: [
+        {
+            question: "Wir arbeiten gerne...",
+            answers: ["isotonisch", "generisch", "systemisch", "platonisch"],
+            correct: 2
+        },
+        {
+            question: "Darf ich deine Nummer haben?",
+            answers: ["192", "537", "110", "197"],
+            correct: 3
+        },
+        {
+            question: "Freestyle gibt es seit...",
+            answers: ["10 Jahren", "25 Jahren", "15 Jahren", "9 Jahren"],
+            correct: 2
+        },
+        {
+            question: "Wie viele Fälle haben wir aktuell?",
+            answers: ["67", "73", "80"],
+            correct: 1
+        },
+        {
+            question: "Welches ist das schönste Team?",
+            answers: ["T3", "T3", "T3", "T3"],
+            correct: -1,  // All answers correct (special handling)
+            allCorrect: true
+        },
+        {
+            question: "Wer ist regelmäßig im Büro aber hat keine eigenen Fälle?",
+            answers: ["Der Drucker", "Naja", "Die Kaffeemaschine", "Der WLAN-Router"],
+            correct: 1
+        },
+        {
+            question: "Wie viele Arbeitsplätze haben wir im Büro?",
+            answers: ["10", "12", "9", "8"],
+            correct: 0
+        },
+        {
+            question: "Wie lautet die Postleitzahl unseres Büro-Standorts?",
+            answers: ["80339", "80335", "80334", "80337"],
+            correct: 1
+        },
+        {
+            question: "Für was steht das 'g' in gGmbH?",
+            answers: ["gemein", "gemeinnützig", "gerechte", "gesellschaft"],
             correct: 1
         }
     ],

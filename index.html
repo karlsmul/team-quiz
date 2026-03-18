@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Quiz 🎉</title>
+    <title>Team Quiz</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -13,96 +13,109 @@
     <!-- START SCREEN -->
     <div id="start-screen" class="screen active">
         <div class="logo-container">
-            <h1 class="logo">🎯 Team Quiz</h1>
+            <h1 class="logo">Team Quiz</h1>
             <p class="subtitle">Warmup für gute Laune!</p>
         </div>
+
+        <!-- PLAYER INPUT -->
         <div class="settings-card">
             <div class="setting">
-                <label for="timer-setting">⏱️ Sekunden pro Frage</label>
+                <label>Spieler hinzufügen</label>
+                <div class="player-input-row">
+                    <input type="text" id="player-name-input" placeholder="Name eingeben..." maxlength="20">
+                    <button class="btn-add-player" onclick="addPlayer()">+</button>
+                </div>
+                <div id="player-list" class="player-list"></div>
+            </div>
+        </div>
+
+        <div class="settings-card">
+            <div class="setting">
+                <label for="timer-setting">Sekunden pro Frage</label>
                 <div class="number-input">
-                    <button class="btn-round" onclick="adjustTimer(-5)">−</button>
+                    <button class="btn-round" onclick="adjustTimer(-5)">-</button>
                     <input type="number" id="timer-setting" value="10" min="5" max="60" step="5">
                     <button class="btn-round" onclick="adjustTimer(5)">+</button>
                 </div>
             </div>
             <div class="setting">
-                <label for="question-count">❓ Anzahl Fragen</label>
+                <label for="question-count">Anzahl Fragen</label>
                 <div class="number-input">
-                    <button class="btn-round" onclick="adjustCount(-5)">−</button>
+                    <button class="btn-round" onclick="adjustCount(-5)">-</button>
                     <input type="number" id="question-count" value="10" min="5" max="50" step="5">
                     <button class="btn-round" onclick="adjustCount(5)">+</button>
                 </div>
             </div>
             <div class="setting">
-                <label>📂 Kategorien</label>
+                <label>Kategorien</label>
                 <div class="category-toggles">
-                    <button class="cat-btn active" data-cat="animals" onclick="toggleCategory(this)">🐾 Tiere</button>
-                    <button class="cat-btn active" data-cat="cities" onclick="toggleCategory(this)">🏙️ Städte</button>
-                    <button class="cat-btn active" data-cat="celebrities" onclick="toggleCategory(this)">⭐ Promis</button>
-                    <button class="cat-btn active" data-cat="custom" onclick="toggleCategory(this)">🎲 Allgemein</button>
+                    <button class="cat-btn active" data-cat="team" onclick="toggleCategory(this)">Team</button>
+                    <button class="cat-btn active" data-cat="animals" onclick="toggleCategory(this)">Tiere</button>
+                    <button class="cat-btn active" data-cat="cities" onclick="toggleCategory(this)">Städte</button>
+                    <button class="cat-btn active" data-cat="celebrities" onclick="toggleCategory(this)">Promis</button>
+                    <button class="cat-btn active" data-cat="custom" onclick="toggleCategory(this)">Allgemein</button>
                 </div>
             </div>
         </div>
         <button class="btn-start" onclick="startQuiz()">
-            Los geht's! 🚀
+            Los geht's!
         </button>
     </div>
 
     <!-- QUIZ SCREEN -->
     <div id="quiz-screen" class="screen">
-        <div class="quiz-header">
-            <div class="progress-info">
-                <span id="question-number">1/10</span>
-                <span id="category-badge" class="category-badge">🐾 Tiere</span>
+        <div class="quiz-top">
+            <div class="quiz-header">
+                <div class="progress-info">
+                    <span id="question-number">1/10</span>
+                    <span id="category-badge" class="category-badge">Team</span>
+                </div>
+                <div class="player-turn">
+                    <span id="current-player">Spieler</span>
+                    <span class="player-score-badge" id="current-player-score">0</span>
+                </div>
             </div>
-            <div class="score-display">⭐ <span id="score">0</span></div>
-        </div>
-        <div class="timer-bar-container">
-            <div id="timer-bar" class="timer-bar"></div>
-        </div>
-        <div id="timer-display" class="timer-display">10</div>
-
-        <div class="question-card" id="question-card">
-            <div id="question-image-container" class="question-image-container" style="display:none;">
-                <img id="question-image" src="" alt="Quiz Bild">
+            <div class="timer-bar-container">
+                <div id="timer-bar" class="timer-bar"></div>
             </div>
-            <h2 id="question-text" class="question-text">Frage?</h2>
+            <div id="timer-display" class="timer-display">10</div>
         </div>
 
-        <div id="answers-container" class="answers-container">
-            <!-- Answers generated by JS -->
+        <div class="quiz-body">
+            <div class="quiz-main">
+                <div class="question-card" id="question-card">
+                    <div id="question-image-container" class="question-image-container" style="display:none;">
+                        <img id="question-image" src="" alt="Quiz Bild">
+                    </div>
+                    <h2 id="question-text" class="question-text">Frage?</h2>
+                </div>
+
+                <div id="answers-container" class="answers-container">
+                </div>
+            </div>
+
+            <div id="scoreboard" class="scoreboard">
+            </div>
         </div>
     </div>
 
     <!-- RESULT SCREEN -->
     <div id="result-screen" class="screen">
         <div class="result-card">
-            <div id="result-emoji" class="result-emoji">🏆</div>
-            <h2 id="result-title">Super gemacht!</h2>
-            <div class="result-score">
-                <span id="final-score">0</span> / <span id="total-questions">10</span>
-            </div>
-            <div id="result-bar-container" class="result-bar-container">
-                <div id="result-bar" class="result-bar"></div>
-            </div>
-            <p id="result-message" class="result-message">Weiter so!</p>
-            <div class="result-stats">
-                <div class="stat">
-                    <span class="stat-number" id="stat-correct">0</span>
-                    <span class="stat-label">Richtig ✅</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" id="stat-wrong">0</span>
-                    <span class="stat-label">Falsch ❌</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" id="stat-timeout">0</span>
-                    <span class="stat-label">Zeit abgelaufen ⏰</span>
-                </div>
+            <div class="trophy-animation">🏆</div>
+            <h2 class="winner-title">Gewinner</h2>
+            <div class="winner-name" id="winner-name">-</div>
+            <div class="winner-score"><span id="winner-score">0</span> Punkte</div>
+        </div>
+
+        <div class="ranking-card">
+            <h3 class="ranking-title">Rangliste</h3>
+            <div id="ranking-list" class="ranking-list">
             </div>
         </div>
+
         <button class="btn-start" onclick="restartQuiz()">
-            Nochmal spielen! 🔄
+            Nochmal spielen!
         </button>
     </div>
 
