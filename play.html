@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Team Quiz - Spieler</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+</head>
+<body class="player-body">
+    <div id="confetti-container"></div>
+
+    <!-- JOIN SCREEN -->
+    <div id="join-screen" class="screen active">
+        <div class="logo-container">
+            <h1 class="logo logo-small">Team Quiz</h1>
+        </div>
+        <div class="player-join-card">
+            <div class="setting">
+                <label>Raum-Code</label>
+                <input type="text" id="room-code-input" class="room-code-input" placeholder="CODE" maxlength="4" autocomplete="off">
+            </div>
+            <div class="setting">
+                <label>Dein Name</label>
+                <input type="text" id="player-name-input" class="player-name-field" placeholder="Name eingeben..." maxlength="20" autocomplete="off">
+            </div>
+            <button class="btn-start btn-join" onclick="joinRoom()" id="join-btn">Beitreten</button>
+            <p id="join-error" class="join-error"></p>
+        </div>
+    </div>
+
+    <!-- WAITING SCREEN -->
+    <div id="waiting-screen" class="screen">
+        <div class="waiting-card">
+            <div class="waiting-emoji">✅</div>
+            <h2>Du bist drin!</h2>
+            <p class="player-name-display" id="player-name-display">---</p>
+            <div class="waiting-dots">
+                <span>Warte auf Quiz-Start</span>
+                <div class="dots-animation"><span>.</span><span>.</span><span>.</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANSWER SCREEN -->
+    <div id="answer-screen" class="screen">
+        <div class="phone-header">
+            <span id="phone-question-num">1/10</span>
+            <span id="phone-score">0 Punkte</span>
+        </div>
+        <div class="phone-timer-bar">
+            <div id="phone-timer-bar-fill" class="phone-timer-bar-fill"></div>
+        </div>
+        <h2 id="phone-question" class="phone-question">Frage?</h2>
+        <div id="phone-answers" class="phone-answers">
+        </div>
+    </div>
+
+    <!-- FEEDBACK SCREEN -->
+    <div id="feedback-screen" class="screen">
+        <div class="feedback-card">
+            <div id="feedback-emoji" class="feedback-big-emoji">✅</div>
+            <h2 id="feedback-title">Richtig!</h2>
+            <p id="feedback-points" class="feedback-points">+200 Punkte</p>
+            <p id="feedback-correct-answer" class="feedback-correct"></p>
+        </div>
+    </div>
+
+    <!-- PLAYER RESULT SCREEN -->
+    <div id="player-result-screen" class="screen">
+        <div class="result-card">
+            <div class="trophy-animation">🏆</div>
+            <h2 id="player-result-place" class="winner-title">---</h2>
+            <div class="winner-name" id="player-result-name">---</div>
+            <div class="winner-score"><span id="player-result-score">0</span> Punkte</div>
+        </div>
+        <div class="ranking-card">
+            <h3 class="ranking-title">Rangliste</h3>
+            <div id="player-ranking-list" class="ranking-list"></div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="player.js"></script>
+</body>
+</html>

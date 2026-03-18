@@ -3,62 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Quiz</title>
+    <title>Team Quiz - Host</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 </head>
 <body>
     <div id="confetti-container"></div>
 
+    <!-- SETUP SCREEN (Firebase not configured) -->
+    <div id="setup-screen" class="screen">
+        <div class="logo-container">
+            <h1 class="logo">Team Quiz</h1>
+            <p class="subtitle">Firebase Setup</p>
+        </div>
+        <div class="settings-card">
+            <div class="setup-instructions">
+                <h3>Firebase einrichten (kostenlos)</h3>
+                <ol>
+                    <li>Gehe zu <strong>console.firebase.google.com</strong></li>
+                    <li><strong>Projekt erstellen</strong> (Google Analytics abwählen)</li>
+                    <li><strong>Realtime Database</strong> erstellen → <em>Testmodus</em></li>
+                    <li>Zahnrad → <strong>Projekteinstellungen</strong> → App hinzufügen (Web)</li>
+                    <li>Config-Werte in <code>firebase-config.js</code> eintragen</li>
+                </ol>
+                <p class="setup-note">Danach Seite neu laden.</p>
+            </div>
+        </div>
+        <button class="btn-start btn-secondary" onclick="startOfflineMode()">
+            Offline spielen (ohne Smartphones)
+        </button>
+    </div>
+
     <!-- START SCREEN -->
-    <div id="start-screen" class="screen active">
+    <div id="start-screen" class="screen">
         <div class="logo-container">
             <h1 class="logo">Team Quiz</h1>
             <p class="subtitle">Warmup für gute Laune!</p>
         </div>
 
-        <!-- PLAYER INPUT -->
-        <div class="settings-card">
-            <div class="setting">
-                <label>Spieler hinzufügen</label>
-                <div class="player-input-row">
-                    <input type="text" id="player-name-input" placeholder="Name eingeben..." maxlength="20">
-                    <button class="btn-add-player" onclick="addPlayer()">+</button>
+        <div class="mode-selection">
+            <button class="mode-btn mode-live" onclick="createRoom()">
+                <span class="mode-icon">📱</span>
+                <span class="mode-title">Live Quiz</span>
+                <span class="mode-desc">Smartphones via QR-Code</span>
+            </button>
+            <button class="mode-btn mode-local" onclick="startOfflineMode()">
+                <span class="mode-icon">🖥️</span>
+                <span class="mode-title">Lokal</span>
+                <span class="mode-desc">Alles auf einem Bildschirm</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- LOBBY SCREEN -->
+    <div id="lobby-screen" class="screen">
+        <div class="logo-container">
+            <h1 class="logo">Team Quiz</h1>
+        </div>
+
+        <div class="lobby-layout">
+            <div class="qr-card">
+                <h3>Mitspielen:</h3>
+                <div id="qr-code" class="qr-code"></div>
+                <div class="room-code-display">
+                    Raum: <span id="room-code" class="room-code">----</span>
                 </div>
-                <div id="player-list" class="player-list"></div>
+                <div class="join-url" id="join-url">---</div>
+            </div>
+
+            <div class="lobby-right">
+                <div class="settings-card">
+                    <div class="setting">
+                        <label>Sekunden pro Frage</label>
+                        <div class="number-input">
+                            <button class="btn-round" onclick="adjustTimer(-5)">-</button>
+                            <input type="number" id="timer-setting" value="10" min="5" max="60" step="5">
+                            <button class="btn-round" onclick="adjustTimer(5)">+</button>
+                        </div>
+                    </div>
+                    <div class="setting">
+                        <label>Anzahl Fragen</label>
+                        <div class="number-input">
+                            <button class="btn-round" onclick="adjustCount(-5)">-</button>
+                            <input type="number" id="question-count" value="10" min="5" max="50" step="5">
+                            <button class="btn-round" onclick="adjustCount(5)">+</button>
+                        </div>
+                    </div>
+                    <div class="setting">
+                        <label>Kategorien</label>
+                        <div class="category-toggles">
+                            <button class="cat-btn active" data-cat="team" onclick="toggleCategory(this)">Team</button>
+                            <button class="cat-btn active" data-cat="animals" onclick="toggleCategory(this)">Tiere</button>
+                            <button class="cat-btn active" data-cat="cities" onclick="toggleCategory(this)">Städte</button>
+                            <button class="cat-btn active" data-cat="celebrities" onclick="toggleCategory(this)">Promis</button>
+                            <button class="cat-btn active" data-cat="custom" onclick="toggleCategory(this)">Allgemein</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lobby-players-card">
+                    <h3>Spieler (<span id="player-count">0</span>)</h3>
+                    <div id="lobby-player-list" class="lobby-player-list">
+                        <p class="waiting-text">Warte auf Spieler...</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="settings-card">
-            <div class="setting">
-                <label for="timer-setting">Sekunden pro Frage</label>
-                <div class="number-input">
-                    <button class="btn-round" onclick="adjustTimer(-5)">-</button>
-                    <input type="number" id="timer-setting" value="10" min="5" max="60" step="5">
-                    <button class="btn-round" onclick="adjustTimer(5)">+</button>
-                </div>
-            </div>
-            <div class="setting">
-                <label for="question-count">Anzahl Fragen</label>
-                <div class="number-input">
-                    <button class="btn-round" onclick="adjustCount(-5)">-</button>
-                    <input type="number" id="question-count" value="10" min="5" max="50" step="5">
-                    <button class="btn-round" onclick="adjustCount(5)">+</button>
-                </div>
-            </div>
-            <div class="setting">
-                <label>Kategorien</label>
-                <div class="category-toggles">
-                    <button class="cat-btn active" data-cat="team" onclick="toggleCategory(this)">Team</button>
-                    <button class="cat-btn active" data-cat="animals" onclick="toggleCategory(this)">Tiere</button>
-                    <button class="cat-btn active" data-cat="cities" onclick="toggleCategory(this)">Städte</button>
-                    <button class="cat-btn active" data-cat="celebrities" onclick="toggleCategory(this)">Promis</button>
-                    <button class="cat-btn active" data-cat="custom" onclick="toggleCategory(this)">Allgemein</button>
-                </div>
-            </div>
-        </div>
-        <button class="btn-start" onclick="startQuiz()">
-            Los geht's!
+        <button class="btn-start" id="lobby-start-btn" onclick="startLiveQuiz()" disabled>
+            Quiz starten!
         </button>
     </div>
 
@@ -70,10 +126,7 @@
                     <span id="question-number">1/10</span>
                     <span id="category-badge" class="category-badge">Team</span>
                 </div>
-                <div class="player-turn">
-                    <span id="current-player">Spieler</span>
-                    <span class="player-score-badge" id="current-player-score">0</span>
-                </div>
+                <div id="answer-count" class="answer-count">0/0 beantwortet</div>
             </div>
             <div class="timer-bar-container">
                 <div id="timer-bar" class="timer-bar"></div>
@@ -110,16 +163,63 @@
 
         <div class="ranking-card">
             <h3 class="ranking-title">Rangliste</h3>
-            <div id="ranking-list" class="ranking-list">
-            </div>
+            <div id="ranking-list" class="ranking-list"></div>
         </div>
 
-        <button class="btn-start" onclick="restartQuiz()">
+        <button class="btn-start" onclick="backToStart()">
             Nochmal spielen!
         </button>
     </div>
 
+    <!-- OFFLINE SCREENS (local mode) -->
+    <div id="offline-start-screen" class="screen">
+        <div class="logo-container">
+            <h1 class="logo">Team Quiz</h1>
+            <p class="subtitle">Offline Modus</p>
+        </div>
+        <div class="settings-card">
+            <div class="setting">
+                <label>Spieler hinzufügen</label>
+                <div class="player-input-row">
+                    <input type="text" id="offline-player-input" placeholder="Name eingeben..." maxlength="20">
+                    <button class="btn-add-player" onclick="addOfflinePlayer()">+</button>
+                </div>
+                <div id="offline-player-list" class="player-list"></div>
+            </div>
+        </div>
+        <div class="settings-card">
+            <div class="setting">
+                <label>Sekunden pro Frage</label>
+                <div class="number-input">
+                    <button class="btn-round" onclick="adjustTimerOffline(-5)">-</button>
+                    <input type="number" id="offline-timer-setting" value="10" min="5" max="60" step="5">
+                    <button class="btn-round" onclick="adjustTimerOffline(5)">+</button>
+                </div>
+            </div>
+            <div class="setting">
+                <label>Anzahl Fragen</label>
+                <div class="number-input">
+                    <button class="btn-round" onclick="adjustCountOffline(-5)">-</button>
+                    <input type="number" id="offline-question-count" value="10" min="5" max="50" step="5">
+                    <button class="btn-round" onclick="adjustCountOffline(5)">+</button>
+                </div>
+            </div>
+            <div class="setting">
+                <label>Kategorien</label>
+                <div class="category-toggles" id="offline-categories">
+                    <button class="cat-btn active" data-cat="team" onclick="toggleCategory(this)">Team</button>
+                    <button class="cat-btn active" data-cat="animals" onclick="toggleCategory(this)">Tiere</button>
+                    <button class="cat-btn active" data-cat="cities" onclick="toggleCategory(this)">Städte</button>
+                    <button class="cat-btn active" data-cat="celebrities" onclick="toggleCategory(this)">Promis</button>
+                    <button class="cat-btn active" data-cat="custom" onclick="toggleCategory(this)">Allgemein</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn-start" id="offline-start-btn" onclick="startOfflineQuiz()">Los geht's!</button>
+    </div>
+
+    <script src="firebase-config.js"></script>
     <script src="questions.js"></script>
-    <script src="script.js"></script>
+    <script src="host.js"></script>
 </body>
 </html>
