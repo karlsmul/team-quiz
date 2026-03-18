@@ -278,7 +278,7 @@ const QUESTIONS = {
             correct: 2
         },
         {
-            question: "Welche dieser Nummer ist relevant?",
+            question: "Welche dieser Nummern ist für uns relevant?",
             answers: ["192", "537", "110", "197"],
             correct: 3
         },

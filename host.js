@@ -397,10 +397,55 @@ function renderScoreboard() {
     }
 }
 
+// ===== TIMER SOUNDS =====
+
+let audioCtx = null;
+let lastTickSecond = -1;
+
+function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+}
+
+function playTick(urgent) {
+    try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.value = urgent ? 880 : 660;
+        gain.gain.setValueAtTime(urgent ? 0.3 : 0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (urgent ? 0.15 : 0.1));
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + (urgent ? 0.15 : 0.1));
+    } catch (e) { /* Audio nicht verfügbar */ }
+}
+
+function playTimeUp() {
+    try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'square';
+        osc.frequency.value = 440;
+        gain.gain.setValueAtTime(0.25, ctx.currentTime);
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.setValueAtTime(330, ctx.currentTime + 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.4);
+    } catch (e) { /* Audio nicht verfügbar */ }
+}
+
 // ===== TIMER =====
 
 function startTimer(onTimeout) {
     timeLeft = config.timerSeconds;
+    lastTickSecond = config.timerSeconds;
     const timerBar = document.getElementById('timer-bar');
     const timerDisplay = document.getElementById('timer-display');
 
@@ -419,7 +464,19 @@ function startTimer(onTimeout) {
 
         timeLeft = remaining / 1000;
         timerBar.style.width = (fraction * 100) + '%';
-        timerDisplay.textContent = Math.ceil(timeLeft);
+
+        const currentSecond = Math.ceil(timeLeft);
+        timerDisplay.textContent = currentSecond;
+
+        // Tick sound on each second change
+        if (currentSecond !== lastTickSecond && currentSecond > 0) {
+            lastTickSecond = currentSecond;
+            if (fraction <= 0.25) {
+                playTick(true);
+            } else if (fraction <= 0.5) {
+                playTick(false);
+            }
+        }
 
         if (fraction <= 0.25) {
             timerBar.className = 'timer-bar danger';
@@ -431,6 +488,7 @@ function startTimer(onTimeout) {
 
         if (remaining <= 0) {
             stopTimer();
+            playTimeUp();
             onTimeout();
         }
     }, 50);
