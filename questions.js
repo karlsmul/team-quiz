@@ -310,7 +310,7 @@ const QUESTIONS = {
         {
             question: "Für was steht fsnw?",
             answers: ["Freestyle Netzwerk", "Freestyle Sozial Nachhaltig Wertschätzend", "Freestyle Neue Wege"],
-            correct: 1
+            correct: 0
         }
     ],
 
