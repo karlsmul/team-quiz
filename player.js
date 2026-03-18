@@ -24,12 +24,7 @@ function initPlayer() {
         db = firebase.database();
     }
 
-    // Check for room code in URL
-    const params = new URLSearchParams(window.location.search);
-    const roomParam = params.get('room');
-    if (roomParam) {
-        document.getElementById('room-code-input').value = roomParam.toUpperCase();
-    }
+    // URL room code is handled by initCodeBoxes()
 }
 
 // ===== JOIN ROOM =====
@@ -136,6 +131,17 @@ function showPhoneQuestion(data) {
 
     document.getElementById('phone-question-num').textContent = `${q.index + 1}/${q.totalQuestions}`;
     document.getElementById('phone-score').textContent = myScore + ' Punkte';
+
+    // Show image if available
+    const imgContainer = document.getElementById('phone-image-container');
+    const img = document.getElementById('phone-image');
+    if (q.image) {
+        img.src = q.image;
+        imgContainer.style.display = 'flex';
+    } else {
+        imgContainer.style.display = 'none';
+    }
+
     document.getElementById('phone-question').textContent = q.question;
 
     // Answers
@@ -352,5 +358,58 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ===== CODE BOX LOGIC =====
+function initCodeBoxes() {
+    const boxes = document.querySelectorAll('.code-box');
+    const hidden = document.getElementById('room-code-input');
+
+    function updateHidden() {
+        hidden.value = Array.from(boxes).map(b => b.value).join('').toUpperCase();
+    }
+
+    boxes.forEach((box, i) => {
+        box.addEventListener('input', (e) => {
+            box.value = box.value.toUpperCase().replace(/[^A-Z]/g, '');
+            if (box.value && i < boxes.length - 1) {
+                boxes[i + 1].focus();
+            }
+            updateHidden();
+        });
+
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !box.value && i > 0) {
+                boxes[i - 1].focus();
+                boxes[i - 1].value = '';
+                updateHidden();
+            }
+            if (e.key === 'Enter') {
+                joinRoom();
+            }
+        });
+
+        box.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const text = (e.clipboardData.getData('text') || '').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 4);
+            for (let j = 0; j < text.length && j < boxes.length; j++) {
+                boxes[j].value = text[j];
+            }
+            if (text.length > 0) boxes[Math.min(text.length, boxes.length) - 1].focus();
+            updateHidden();
+        });
+    });
+
+    // Pre-fill from URL param
+    const params = new URLSearchParams(window.location.search);
+    const roomParam = params.get('room');
+    if (roomParam) {
+        const code = roomParam.toUpperCase().slice(0, 4);
+        for (let j = 0; j < code.length && j < boxes.length; j++) {
+            boxes[j].value = code[j];
+        }
+        updateHidden();
+    }
+}
+
 // ===== START =====
 initPlayer();
+initCodeBoxes();

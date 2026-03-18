@@ -5,86 +5,68 @@ const QUESTIONS = {
 
     animals: [
         {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/800px-Cat_November_2010-1a.jpg",
-            answers: ["Katze", "Luchs", "Ozelot", "Puma"],
+            question: "Welches flauschige Tier ist das?",
+            image: "Tiere/Alpaka.jpg",
+            answers: ["Lama", "Alpaka", "Schaf", "Ziege"],
+            correct: 1
+        },
+        {
+            question: "Diese kleinen Kerle stehen gern Wache – welches Tier?",
+            image: "Tiere/Erdmaennchen.jpg",
+            answers: ["Präriehund", "Erdmännchen", "Murmeltier", "Hamster"],
+            correct: 1
+        },
+        {
+            question: "Welches Tier hat es überhaupt nicht eilig?",
+            image: "Tiere/Faultier.jpg",
+            answers: ["Koala", "Faultier", "Opossum", "Katta"],
+            correct: 1
+        },
+        {
+            question: "Dieses Tier sieht aus wie ein Pokémon – was ist es?",
+            image: "Tiere/Axolotl.jpg",
+            answers: ["Molch", "Salamander", "Axolotl", "Gecko"],
+            correct: 2
+        },
+        {
+            question: "Welches Tier gilt als das glücklichste der Welt?",
+            image: "Tiere/Quokka.jpg",
+            answers: ["Quokka", "Wombat", "Kaninchen", "Chinchilla"],
             correct: 0
         },
         {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/800px-YellowLabradorLooking_new.jpg",
-            answers: ["Golden Retriever", "Labrador", "Pudel", "Beagle"],
-            correct: 1
-        },
-        {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/800px-2010-kodiak-bear-1.jpg",
-            answers: ["Grizzlybär", "Eisbär", "Kodiakbär", "Braunbär"],
+            question: "Welches Tier kann seine Farbe wechseln?",
+            image: "Tiere/Chamaeleon.jpg",
+            answers: ["Leguan", "Gecko", "Chamäleon", "Agame"],
             correct: 2
         },
         {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/800px-Cat03.jpg",
-            answers: ["Perserkatze", "Hauskatze", "Maine Coon", "Siamkatze"],
+            question: "Süß, rot und flauschig – welches Tier?",
+            image: "Tiere/Roter Panda.jpg",
+            answers: ["Fuchs", "Roter Panda", "Waschbär", "Marder"],
             correct: 1
         },
         {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Dog_park_in_San_Jose_CA.jpg/800px-Dog_park_in_San_Jose_CA.jpg",
-            answers: ["Schäferhund", "Rottweiler", "Dobermann", "Labrador"],
-            correct: 3
-        },
-        {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg/800px-African_Elephant_%28Loxodonta_africana%29_bull_%2831100819046%29.jpg",
-            answers: ["Elefant", "Nashorn", "Nilpferd", "Mammut"],
-            correct: 0
-        },
-        {
-            question: "Welches Tier siehst du hier?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/800px-Lion_waiting_in_Namibia.jpg",
-            answers: ["Tiger", "Leopard", "Löwe", "Gepard"],
-            correct: 2
-        },
-        {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Giraffe_Ithala_KZN_South_Africa_Luca_Galuzzi_2004.JPG/800px-Giraffe_Ithala_KZN_South_Africa_Luca_Galuzzi_2004.JPG",
-            answers: ["Okapi", "Giraffe", "Antilope", "Zebra"],
+            question: "Dieses Tier legt Eier, hat einen Schnabel und ist ein Säugetier!",
+            image: "Tiere/Schnabeltier.jpg",
+            answers: ["Biber", "Schnabeltier", "Otter", "Bisamratte"],
             correct: 1
         },
         {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Panda_Cub_from_Wolong%2C_Sichuan%2C_China.JPG/800px-Panda_Cub_from_Wolong%2C_Sichuan%2C_China.JPG",
-            answers: ["Waschbär", "Koala", "Pandabär", "Lemur"],
-            correct: 2
-        },
-        {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Killerwhales_jumping.jpg/800px-Killerwhales_jumping.jpg",
-            answers: ["Delfin", "Blauwal", "Orca", "Hai"],
-            correct: 2
-        },
-        {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Flamingos_Laguna_Colorada.jpg/800px-Flamingos_Laguna_Colorada.jpg",
-            answers: ["Storch", "Flamingo", "Pelikan", "Reiher"],
+            question: "Welcher Fisch bläht sich bei Gefahr auf?",
+            image: "Tiere/Kugelfisch.jpg",
+            answers: ["Kofferfisch", "Kugelfisch", "Seeteufel", "Clownfisch"],
             correct: 1
         },
         {
-            question: "Welches Tier ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Polar_Bear_-_Alaska_%28cropped%29.jpg/800px-Polar_Bear_-_Alaska_%28cropped%29.jpg",
-            answers: ["Eisbär", "Schneeleopard", "Polarfuchs", "Schneehase"],
+            question: "Welches Tier wäscht gern sein Essen?",
+            image: "Tiere/Waschbaer.jpg",
+            answers: ["Waschbär", "Dachs", "Skunk", "Marder"],
             correct: 0
         }
     ],
 
     cities: [
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/960px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg",
-            answers: ["London", "Paris", "Rom", "Madrid"],
-            correct: 1
-        },
         {
             question: "Welche Stadt ist das?",
             image: "Städte/New York.jpg",
@@ -93,39 +75,9 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/960px-Colosseo_2020.jpg",
-            answers: ["Athen", "Rom", "Istanbul", "Barcelona"],
-            correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Sydney_Australia._%2821339175489%29.jpg/960px-Sydney_Australia._%2821339175489%29.jpg",
-            answers: ["Melbourne", "Sydney", "Auckland", "Kapstadt"],
-            correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
             image: "Städte/Berlin.jpeg",
             answers: ["München", "Berlin", "Hamburg", "Wien"],
             correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/960px-London_Skyline_%28125508655%29.jpeg",
-            answers: ["London", "Amsterdam", "Dublin", "Edinburgh"],
-            correct: 0
-        },
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/1029_Acropolis_of_Athens_in_Greece_at_night_Photo_by_Giles_Laurent.jpg/960px-1029_Acropolis_of_Athens_in_Greece_at_night_Photo_by_Giles_Laurent.jpg",
-            answers: ["Rom", "Athen", "Istanbul", "Kairo"],
-            correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/960px-Burj_Khalifa_2021.jpg",
-            answers: ["Abu Dhabi", "Doha", "Dubai", "Singapur"],
-            correct: 2
         },
         {
             question: "Welche Stadt ist das?",
@@ -141,21 +93,69 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/960px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png",
-            answers: ["Brügge", "Amsterdam", "Kopenhagen", "Hamburg"],
-            correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg/960px-Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg",
-            answers: ["Moskau", "St. Petersburg", "Prag", "Warschau"],
-            correct: 0
-        },
-        {
-            question: "Welche Stadt ist das?",
             image: "Städte/München.jpg",
             answers: ["Stuttgart", "München", "Nürnberg", "Salzburg"],
             correct: 1
+        },
+        {
+            question: "Welche Stadt hat diese verrückte Kirche?",
+            image: "Städte/Barcelona.jpg",
+            answers: ["Madrid", "Barcelona", "Valencia", "Sevilla"],
+            correct: 1
+        },
+        {
+            question: "In welcher Stadt fährt man Gondel statt Auto?",
+            image: "Städte/Venedig.jpg",
+            answers: ["Venedig", "Brügge", "Amsterdam", "Stockholm"],
+            correct: 0
+        },
+        {
+            question: "Welche Stadt hat die berühmte Christus-Statue?",
+            image: "Städte/Rio de Janeiro.jpg",
+            answers: ["Buenos Aires", "Lima", "Rio de Janeiro", "São Paulo"],
+            correct: 2
+        },
+        {
+            question: "In welcher Stadt steht dieser bunte Tempel?",
+            image: "Städte/Bangkok.jpg",
+            answers: ["Bangkok", "Hanoi", "Jakarta", "Manila"],
+            correct: 0
+        },
+        {
+            question: "Welche Stadt liegt auf zwei Kontinenten?",
+            image: "Städte/Istanbul.jpg",
+            answers: ["Kairo", "Istanbul", "Teheran", "Beirut"],
+            correct: 1
+        },
+        {
+            question: "In welcher Stadt fährt eine berühmte gelbe Straßenbahn?",
+            image: "Städte/Lissabon.jpg",
+            answers: ["Porto", "Lissabon", "Sevilla", "Marseille"],
+            correct: 1
+        },
+        {
+            question: "Welche Stadt hat die schönste Brücke Europas?",
+            image: "Städte/Prag.jpg",
+            answers: ["Wien", "Prag", "Budapest", "Dresden"],
+            correct: 1
+        },
+        {
+            question: "Welche Stadt liegt am Fuß des Tafelbergs?",
+            image: "Städte/Kapstadt.jpg",
+            answers: ["Johannesburg", "Nairobi", "Kapstadt", "Dakar"],
+            correct: 2
+        },
+        {
+            question: "Welche Stadt hat dieses futuristische Hotel am Wasser?",
+            image: "Städte/Singapur.jpg",
+            answers: ["Hongkong", "Kuala Lumpur", "Singapur", "Shanghai"],
+            correct: 2
+        },
+        {
+            question: "In welcher Stadt steht dieses prächtige Parlamentsgebäude?",
+            image: "Städte/Budapest.jpg",
+            answers: ["Wien", "Warschau", "Budapest", "Bukarest"],
+            correct: 2
         }
     ],
 
@@ -207,6 +207,67 @@ const QUESTIONS = {
             image: "Promis/Joko.jpg",
             answers: ["Elton John", "Joko Winterscheidt", "Jan Böhmermann", "Klaas Heufer-Umlauf"],
             correct: 1
+        },
+        // === Neue Promis (lustig, 20-35 Zielgruppe) ===
+        {
+            question: "Welcher Wrestler wurde Filmstar und riecht, was der Rock kocht?",
+            image: "Promis/Dwayne Johnson.jpg",
+            answers: ["Vin Diesel", "John Cena", "Dwayne Johnson", "Jason Statham"],
+            correct: 2
+        },
+        {
+            question: "Welcher Schauspieler ist quasi mit Deadpool verschmolzen?",
+            image: "Promis/Ryan Reynolds.jpg",
+            answers: ["Chris Pratt", "Ryan Reynolds", "Ryan Gosling", "Chris Evans"],
+            correct: 1
+        },
+        {
+            question: "Wer rappt, kocht mit Martha Stewart und liebt Gin & Juice?",
+            image: "Promis/Snoop Dogg.jpg",
+            answers: ["50 Cent", "Dr. Dre", "Snoop Dogg", "Ice Cube"],
+            correct: 2
+        },
+        {
+            question: "Wer hat bei den Oscars für Schlagzeilen gesorgt – im wahrsten Sinne?",
+            image: "Promis/Will Smith.jpg",
+            answers: ["Denzel Washington", "Will Smith", "Jamie Foxx", "Samuel L. Jackson"],
+            correct: 1
+        },
+        {
+            question: "Welcher Schauspieler ist quasi unsterblich und atmet pure Güte?",
+            image: "Promis/Keanu Reeves.jpg",
+            answers: ["Keanu Reeves", "Tom Cruise", "Brad Pitt", "Johnny Depp"],
+            correct: 0
+        },
+        {
+            question: "Wer spielt MJ und läuft auf jedem roten Teppich alle an die Wand?",
+            image: "Promis/Zendaya.jpg",
+            answers: ["Zendaya", "Halle Bailey", "Florence Pugh", "Sydney Sweeney"],
+            correct: 0
+        },
+        {
+            question: "Welcher Fußballer hat mehr Instagram-Follower als manche Länder Einwohner?",
+            image: "Promis/Cristiano Ronaldo.jpg",
+            answers: ["Lionel Messi", "Neymar", "Cristiano Ronaldo", "Kylian Mbappé"],
+            correct: 2
+        },
+        {
+            question: "Wer singt 'Bad Guy' und hat grüne Haare berühmt gemacht?",
+            image: "Promis/Billie Eilish.jpg",
+            answers: ["Olivia Rodrigo", "Dua Lipa", "Billie Eilish", "Ariana Grande"],
+            correct: 2
+        },
+        {
+            question: "Welcher rothaarige Brite macht Stadien voll – nur mit einer Gitarre?",
+            image: "Promis/Ed Sheeran.jpg",
+            answers: ["Ed Sheeran", "Harry Styles", "Sam Smith", "Lewis Capaldi"],
+            correct: 0
+        },
+        {
+            question: "Wer hat ein eigenes Reality-TV-Imperium und bricht regelmäßig das Internet?",
+            image: "Promis/Kim Kardashian.jpg",
+            answers: ["Paris Hilton", "Kim Kardashian", "Kylie Jenner", "Khloé Kardashian"],
+            correct: 1
         }
     ],
 
@@ -217,7 +278,7 @@ const QUESTIONS = {
             correct: 2
         },
         {
-            question: "Darf ich deine Nummer haben?",
+            question: "Welche dieser Nummer ist relevant?",
             answers: ["192", "537", "110", "197"],
             correct: 3
         },
@@ -232,17 +293,6 @@ const QUESTIONS = {
             correct: 1
         },
         {
-            question: "Welches ist das schönste Team?",
-            answers: ["T3", "T3", "T3", "T3"],
-            correct: -1,
-            allCorrect: true
-        },
-        {
-            question: "Wer ist regelmäßig im Büro aber hat keine eigenen Fälle?",
-            answers: ["Der Drucker", "Naja", "Die Kaffeemaschine", "Der WLAN-Router"],
-            correct: 1
-        },
-        {
             question: "Wie viele Arbeitsplätze haben wir im Büro?",
             answers: ["10", "12", "9", "8"],
             correct: 0
@@ -254,7 +304,12 @@ const QUESTIONS = {
         },
         {
             question: "Für was steht das 'g' in gGmbH?",
-            answers: ["gemein", "gemeinnützig", "gerechte", "gesellschaft"],
+            answers: ["gemein", "gemeinnützig", "gerechte", "gemeinsam"],
+            correct: 1
+        },
+        {
+            question: "Für was steht fsnw?",
+            answers: ["Freestyle Netzwerk", "Freestyle Sozial Nachhaltig Wertschätzend", "Freestyle Neue Wege"],
             correct: 1
         }
     ],

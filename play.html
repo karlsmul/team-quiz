@@ -20,7 +20,13 @@
         <div class="player-join-card">
             <div class="setting">
                 <label>Raum-Code</label>
-                <input type="text" id="room-code-input" class="room-code-input" placeholder="CODE" maxlength="4" autocomplete="off">
+                <div class="code-boxes">
+                    <input type="text" class="code-box" maxlength="1" autocomplete="off" inputmode="text" data-index="0">
+                    <input type="text" class="code-box" maxlength="1" autocomplete="off" inputmode="text" data-index="1">
+                    <input type="text" class="code-box" maxlength="1" autocomplete="off" inputmode="text" data-index="2">
+                    <input type="text" class="code-box" maxlength="1" autocomplete="off" inputmode="text" data-index="3">
+                </div>
+                <input type="hidden" id="room-code-input">
             </div>
             <div class="setting">
                 <label>Dein Name</label>
@@ -52,6 +58,9 @@
         </div>
         <div class="phone-timer-bar">
             <div id="phone-timer-bar-fill" class="phone-timer-bar-fill"></div>
+        </div>
+        <div id="phone-image-container" class="phone-image-container" style="display:none;">
+            <img id="phone-image" class="phone-image" alt="">
         </div>
         <h2 id="phone-question" class="phone-question">Frage?</h2>
         <div id="phone-answers" class="phone-answers">

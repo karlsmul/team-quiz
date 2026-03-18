@@ -171,7 +171,7 @@ function showLiveQuestion() {
     const img = document.getElementById('question-image');
     if (q.image) {
         img.src = q.image;
-        imgContainer.style.display = 'block';
+        imgContainer.style.display = 'flex';
     } else {
         imgContainer.style.display = 'none';
     }
@@ -191,11 +191,18 @@ function showLiveQuestion() {
         container.appendChild(btn);
     });
 
+    // Build absolute image URL so phones can load it
+    let imageUrl = q.image || null;
+    if (imageUrl && !imageUrl.startsWith('http')) {
+        const baseUrl = window.location.href.replace(/\/[^\/]*$/, '/');
+        imageUrl = baseUrl + encodeURI(imageUrl);
+    }
+
     // Push question to Firebase (WITHOUT correct answer!)
     const questionData = {
         question: q.question,
         answers: q.answers,
-        image: q.image || null,
+        image: imageUrl,
         category: q.category,
         index: currentQIndex,
         totalQuestions: gameQuestions.length,
@@ -525,7 +532,7 @@ function showOfflineQuestion() {
 
     const imgContainer = document.getElementById('question-image-container');
     const img = document.getElementById('question-image');
-    if (q.image) { img.src = q.image; imgContainer.style.display = 'block'; }
+    if (q.image) { img.src = q.image; imgContainer.style.display = 'flex'; }
     else { imgContainer.style.display = 'none'; }
 
     document.getElementById('question-text').textContent = q.question;
@@ -746,8 +753,18 @@ function buildQuestionList(categories, count) {
         }
     });
 
-    teamPool = shuffleArray(teamPool);
-    otherPool = shuffleArray(otherPool);
+    // Deduplicate by question text
+    const dedup = (arr) => {
+        const seen = new Set();
+        return arr.filter(q => {
+            const key = q.question + '|' + (q.image || '');
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+    };
+    teamPool = dedup(shuffleArray(teamPool));
+    otherPool = dedup(shuffleArray(otherPool));
 
     // If no team questions selected, just shuffle everything
     if (teamPool.length === 0) {
