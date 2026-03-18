@@ -268,6 +268,67 @@ const QUESTIONS = {
             image: "Promis/Kim Kardashian.jpg",
             answers: ["Paris Hilton", "Kim Kardashian", "Kylie Jenner", "Khloé Kardashian"],
             correct: 1
+        },
+        // === Deutsche Trash-TV-Promis ===
+        {
+            question: "Welche Katze hat eine eigene TV-Show und ist Deutschlands bekannteste Blondine?",
+            image: "Promis/Daniela Katzenberger.jpg",
+            answers: ["Daniela Katzenberger", "Sophia Thomalla", "Sylvie Meis", "Carmen Geiss"],
+            correct: 0
+        },
+        {
+            question: "Welcher DSDS-Gewinner singt jetzt Schlager und ist Dauergast im Trash-TV?",
+            image: "Promis/Pietro Lombardi.jpg",
+            answers: ["Alexander Klaws", "Pietro Lombardi", "Luca Hänni", "Mehrzad Marashi"],
+            correct: 1
+        },
+        {
+            question: "Wer sucht seit Jahrzehnten den Superstar – und sich selbst am meisten?",
+            image: "Promis/Dieter Bohlen.jpg",
+            answers: ["Dieter Bohlen", "Thomas Gottschalk", "Günther Jauch", "Stefan Raab"],
+            correct: 0
+        },
+        {
+            question: "Welche Dschungelcamp-Gewinnerin ist für ihre charmante Verpeiltheit bekannt?",
+            image: "Promis/Evelyn Burdecki.jpg",
+            answers: ["Jenny Frankhauser", "Evelyn Burdecki", "Georgina Fleur", "Gina-Lisa Lohfink"],
+            correct: 1
+        },
+        {
+            question: "Wer machte 'Da werden Sie geholfen!' zum Kult-Spruch?",
+            image: "Promis/Verona Pooth.jpg",
+            answers: ["Verona Pooth", "Sonja Kraus", "Barbara Schöneberger", "Frauke Ludowig"],
+            correct: 0
+        },
+        {
+            question: "Welche Rapperin und YouTuberin sorgt regelmäßig für Kontroversen?",
+            image: "Promis/Shirin David.jpg",
+            answers: ["Katja Krasavice", "Shirin David", "Juju", "Loredana"],
+            correct: 1
+        },
+        {
+            question: "Welche Influencerin war mal mit einem Fußball-Weltmeister verheiratet?",
+            image: "Promis/Cathy Hummels.jpg",
+            answers: ["Ann-Kathrin Götze", "Jessica Schwarz", "Cathy Hummels", "Lena Gercke"],
+            correct: 2
+        },
+        {
+            question: "Welcher Schlagerstar wurde durch seine Flucht nach Florida berühmt-berüchtigt?",
+            image: "Promis/Michael Wendler.jpg",
+            answers: ["Jürgen Drews", "Michael Wendler", "Costa Cordalis", "DJ Ötzi"],
+            correct: 1
+        },
+        {
+            question: "Wer ist Deutschlands erfolgreichstes Topmodel und hat eine eigene TV-Show?",
+            image: "Promis/Heidi Klum.jpg",
+            answers: ["Claudia Schiffer", "Heidi Klum", "Naomi Campbell", "Lena Gercke"],
+            correct: 1
+        },
+        {
+            question: "Welcher TV-Entertainer hat sich jahrelang versteckt und ist eine deutsche Legende?",
+            image: "Promis/Stefan Raab.jpg",
+            answers: ["Joko Winterscheidt", "Oliver Pocher", "Stefan Raab", "Bastian Pastewka"],
+            correct: 2
         }
     ],
 
