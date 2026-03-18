@@ -105,21 +105,9 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/800px-Skyscrapers_of_Shinjuku_2009_January.jpg",
-            answers: ["Seoul", "Shanghai", "Tokio", "Hongkong"],
-            correct: 2
-        },
-        {
-            question: "Welche Stadt ist das?",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Brandenburger_Tor_abends.jpg/800px-Brandenburger_Tor_abends.jpg",
             answers: ["München", "Berlin", "Hamburg", "Wien"],
             correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Dubai_Marina_Skyline.jpg/800px-Dubai_Marina_Skyline.jpg",
-            answers: ["Abu Dhabi", "Doha", "Dubai", "Riad"],
-            correct: 2
         },
         {
             question: "Welche Stadt ist das?",
@@ -129,27 +117,39 @@ const QUESTIONS = {
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/800px-Empire_State_Building_%28aerial_view%29.jpg",
-            answers: ["Chicago", "New York", "Philadelphia", "Boston"],
-            correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Panorama_of_Macao.jpg/800px-Panorama_of_Macao.jpg",
-            answers: ["Shanghai", "Macau", "Singapur", "Hongkong"],
-            correct: 1
-        },
-        {
-            question: "Welche Stadt ist das?",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Acropolis_from_south-west.jpg/800px-Acropolis_from_south-west.jpg",
             answers: ["Rom", "Athen", "Istanbul", "Kairo"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/800px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
-            answers: ["Lyon", "Paris", "Brüssel", "Marseille"],
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Dubai_Skyline.jpg/800px-Dubai_Skyline.jpg",
+            answers: ["Abu Dhabi", "Doha", "Dubai", "Singapur"],
+            correct: 2
+        },
+        {
+            question: "Welche Stadt ist das?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/800px-Skyscrapers_of_Shinjuku_2009_January.jpg",
+            answers: ["Seoul", "Shanghai", "Tokio", "Hongkong"],
+            correct: 2
+        },
+        {
+            question: "Welche Stadt ist das?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Panoramic_view_of_the_Golden_Gate_Bridge_and_San_Francisco%2C_California%2C_from_the_Marin_Headlands.jpg/800px-Panoramic_view_of_the_Golden_Gate_Bridge_and_San_Francisco%2C_California%2C_from_the_Marin_Headlands.jpg",
+            answers: ["Los Angeles", "San Francisco", "Seattle", "San Diego"],
             correct: 1
+        },
+        {
+            question: "Welche Stadt ist das?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Amsterdam_-_Pair_of_canal_houses.jpg/800px-Amsterdam_-_Pair_of_canal_houses.jpg",
+            answers: ["Brügge", "Amsterdam", "Kopenhagen", "Hamburg"],
+            correct: 1
+        },
+        {
+            question: "Welche Stadt ist das?",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Moscow_July_2011-45.jpg/800px-Moscow_July_2011-45.jpg",
+            answers: ["Moskau", "St. Petersburg", "Prag", "Warschau"],
+            correct: 0
         }
     ],
 
