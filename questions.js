@@ -81,162 +81,132 @@ const QUESTIONS = {
     cities: [
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_eiffel_at_sunrise_from_the_trocadero.jpg/800px-Tour_eiffel_at_sunrise_from_the_trocadero.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/960px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg",
             answers: ["London", "Paris", "Rom", "Madrid"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/New_york_times_square-terabass.jpg/800px-New_york_times_square-terabass.jpg",
+            image: "Promis/New York.jpg",
             answers: ["Los Angeles", "Chicago", "New York", "Las Vegas"],
             correct: 2
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Colosseum_in_Rome-April_2007-1-_copie_2B.jpg/800px-Colosseum_in_Rome-April_2007-1-_copie_2B.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/960px-Colosseo_2020.jpg",
             answers: ["Athen", "Rom", "Istanbul", "Barcelona"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Sydney_%28AU%29%2C_Opera_House_--_2019_--_2055-57.jpg/800px-Sydney_%28AU%29%2C_Opera_House_--_2019_--_2055-57.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Sydney_Australia._%2821339175489%29.jpg/960px-Sydney_Australia._%2821339175489%29.jpg",
             answers: ["Melbourne", "Sydney", "Auckland", "Kapstadt"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Brandenburger_Tor_abends.jpg/800px-Brandenburger_Tor_abends.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Brandenburger_Tor_abends.jpg/960px-Brandenburger_Tor_abends.jpg",
             answers: ["München", "Berlin", "Hamburg", "Wien"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/London_Thames_Sunset_panorama_-_Feb_2008.jpg/800px-London_Thames_Sunset_panorama_-_Feb_2008.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/960px-London_Skyline_%28125508655%29.jpeg",
             answers: ["London", "Amsterdam", "Dublin", "Edinburgh"],
             correct: 0
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Acropolis_from_south-west.jpg/800px-Acropolis_from_south-west.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/1029_Acropolis_of_Athens_in_Greece_at_night_Photo_by_Giles_Laurent.jpg/960px-1029_Acropolis_of_Athens_in_Greece_at_night_Photo_by_Giles_Laurent.jpg",
             answers: ["Rom", "Athen", "Istanbul", "Kairo"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Dubai_Skyline.jpg/800px-Dubai_Skyline.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/960px-Burj_Khalifa_2021.jpg",
             answers: ["Abu Dhabi", "Doha", "Dubai", "Singapur"],
             correct: 2
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/800px-Skyscrapers_of_Shinjuku_2009_January.jpg",
+            image: "Promis/Tokio.jpg",
             answers: ["Seoul", "Shanghai", "Tokio", "Hongkong"],
             correct: 2
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Panoramic_view_of_the_Golden_Gate_Bridge_and_San_Francisco%2C_California%2C_from_the_Marin_Headlands.jpg/800px-Panoramic_view_of_the_Golden_Gate_Bridge_and_San_Francisco%2C_California%2C_from_the_Marin_Headlands.jpg",
+            image: "Promis/San Francisco.jpg",
             answers: ["Los Angeles", "San Francisco", "Seattle", "San Diego"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Amsterdam_-_Pair_of_canal_houses.jpg/800px-Amsterdam_-_Pair_of_canal_houses.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/960px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png",
             answers: ["Brügge", "Amsterdam", "Kopenhagen", "Hamburg"],
             correct: 1
         },
         {
             question: "Welche Stadt ist das?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Moscow_July_2011-45.jpg/800px-Moscow_July_2011-45.jpg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg/960px-Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg",
             answers: ["Moskau", "St. Petersburg", "Prag", "Warschau"],
             correct: 0
+        },
+        {
+            question: "Welche Stadt ist das?",
+            image: "Promis/München.jpg",
+            answers: ["Stuttgart", "München", "Nürnberg", "Salzburg"],
+            correct: 1
         }
     ],
 
     celebrities: [
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Albert_Einstein_Head.jpg/800px-Albert_Einstein_Head.jpg",
-            answers: ["Nikola Tesla", "Albert Einstein", "Isaac Newton", "Stephen Hawking"],
-            correct: 1
-        },
-        {
-            question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Beethoven.jpg/800px-Beethoven.jpg",
-            answers: ["Mozart", "Bach", "Beethoven", "Chopin"],
+            image: "Promis/Taylor Swift.jpg",
+            answers: ["Beyoncé", "Adele", "Taylor Swift", "Rihanna"],
             correct: 2
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/800px-President_Barack_Obama.jpg",
+            image: "Promis/Obama.jpg",
             answers: ["Joe Biden", "Barack Obama", "Bill Clinton", "George Bush"],
             correct: 1
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
-            answers: ["Mona Lisa", "Venus", "Maria", "Kleopatra"],
-            correct: 0
-        },
-        {
-            question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Angela_Merkel_2019_%28cropped%29.jpg/800px-Angela_Merkel_2019_%28cropped%29.jpg",
-            answers: ["Ursula von der Leyen", "Angela Merkel", "Annalena Baerbock", "Hillary Clinton"],
+            image: "Promis/Steinmeier.jpg",
+            answers: ["Olaf Scholz", "Frank-Walter Steinmeier", "Christian Lindner", "Friedrich Merz"],
             correct: 1
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Frida_Kahlo_1932.jpg/800px-Frida_Kahlo_1932.jpg",
-            answers: ["Georgia O'Keeffe", "Frida Kahlo", "Yoko Ono", "Tamara de Lempicka"],
+            image: "Promis/Michael Jackson.jpg",
+            answers: ["Prince", "Michael Jackson", "Stevie Wonder", "Lionel Richie"],
             correct: 1
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg/800px-Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg",
-            answers: ["Galileo Galilei", "Michelangelo", "Leonardo da Vinci", "Raffael"],
+            image: "Promis/Mozart.jpg",
+            answers: ["Beethoven", "Bach", "Mozart", "Haydn"],
             correct: 2
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Freddie_Mercury_performing_in_New_Haven%2C_CT%2C_November_1977.jpg/800px-Freddie_Mercury_performing_in_New_Haven%2C_CT%2C_November_1977.jpg",
-            answers: ["David Bowie", "Freddie Mercury", "Mick Jagger", "Elton John"],
-            correct: 1
-        },
-        {
-            question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Leonardo_Dicaprio_Cannes_2019.jpg/800px-Leonardo_Dicaprio_Cannes_2019.jpg",
-            answers: ["Brad Pitt", "Leonardo DiCaprio", "Johnny Depp", "Robert Downey Jr."],
-            correct: 1
-        },
-        {
-            question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Charlie_Chaplin.jpg/800px-Charlie_Chaplin.jpg",
-            answers: ["Buster Keaton", "Charlie Chaplin", "Laurel", "Hardy"],
-            correct: 1
-        },
-        {
-            question: "Wer ist diese berühmte Figur?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Marilyn_Monroe_-_publicity.jpg/800px-Marilyn_Monroe_-_publicity.jpg",
-            answers: ["Grace Kelly", "Audrey Hepburn", "Marilyn Monroe", "Elizabeth Taylor"],
+            image: "Promis/Martin Luther King.jpg",
+            answers: ["Nelson Mandela", "Malcolm X", "Martin Luther King", "Muhammad Ali"],
             correct: 2
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Nelson_Mandela_1994.jpg/800px-Nelson_Mandela_1994.jpg",
-            answers: ["Martin Luther King", "Nelson Mandela", "Kofi Annan", "Desmond Tutu"],
+            image: "Promis/Mutter Theresa.jpg",
+            answers: ["Queen Victoria", "Mutter Teresa", "Rosa Parks", "Florence Nightingale"],
             correct: 1
         },
         {
             question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Queen_Elizabeth_II_in_March_2015.jpg/800px-Queen_Elizabeth_II_in_March_2015.jpg",
-            answers: ["Margaret Thatcher", "Queen Elizabeth II", "Queen Victoria", "Prinzessin Diana"],
+            image: "Promis/Joko.jpg",
+            answers: ["Elton John", "Joko Winterscheidt", "Jan Böhmermann", "Klaas Heufer-Umlauf"],
             correct: 1
-        },
-        {
-            question: "Wer ist diese Person?",
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg/800px-Arnold_Schwarzenegger_by_Gage_Skidmore_4.jpg",
-            answers: ["Sylvester Stallone", "Dwayne Johnson", "Arnold Schwarzenegger", "Chuck Norris"],
-            correct: 2
         }
     ],
 
