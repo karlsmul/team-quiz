@@ -132,14 +132,17 @@ function showPhoneQuestion(data) {
     document.getElementById('phone-question-num').textContent = `${q.index + 1}/${q.totalQuestions}`;
     document.getElementById('phone-score').textContent = myScore + ' Punkte';
 
-    // Show image if available
+    // Show image if available — hide old image first to prevent mismatch
     const imgContainer = document.getElementById('phone-image-container');
     const img = document.getElementById('phone-image');
     if (q.image) {
-        img.src = q.image;
         imgContainer.style.display = 'flex';
+        img.style.opacity = '0';
+        img.onload = () => { img.style.opacity = '1'; };
+        img.src = q.image;
     } else {
         imgContainer.style.display = 'none';
+        img.src = '';
     }
 
     document.getElementById('phone-question').textContent = q.question;

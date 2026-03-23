@@ -5,61 +5,61 @@ const QUESTIONS = {
 
     animals: [
         {
-            question: "Welches flauschige Tier ist das?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Alpaka.jpg",
             answers: ["Lama", "Alpaka", "Schaf", "Ziege"],
             correct: 1
         },
         {
-            question: "Diese kleinen Kerle stehen gern Wache – welches Tier?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Erdmaennchen.jpg",
             answers: ["Präriehund", "Erdmännchen", "Murmeltier", "Hamster"],
             correct: 1
         },
         {
-            question: "Welches Tier hat es überhaupt nicht eilig?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Faultier.jpg",
             answers: ["Koala", "Faultier", "Opossum", "Katta"],
             correct: 1
         },
         {
-            question: "Dieses Tier sieht aus wie ein Pokémon – was ist es?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Axolotl.jpg",
             answers: ["Molch", "Salamander", "Axolotl", "Gecko"],
             correct: 2
         },
         {
-            question: "Welches Tier gilt als das glücklichste der Welt?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Quokka.jpg",
             answers: ["Quokka", "Wombat", "Kaninchen", "Chinchilla"],
             correct: 0
         },
         {
-            question: "Welches Tier kann seine Farbe wechseln?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Chamaeleon.jpg",
             answers: ["Leguan", "Gecko", "Chamäleon", "Agame"],
             correct: 2
         },
         {
-            question: "Süß, rot und flauschig – welches Tier?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Roter Panda.jpg",
             answers: ["Fuchs", "Roter Panda", "Waschbär", "Marder"],
             correct: 1
         },
         {
-            question: "Dieses Tier legt Eier, hat einen Schnabel und ist ein Säugetier!",
+            question: "Welches Tier ist das?",
             image: "Tiere/Schnabeltier.jpg",
             answers: ["Biber", "Schnabeltier", "Otter", "Bisamratte"],
             correct: 1
         },
         {
-            question: "Welcher Fisch bläht sich bei Gefahr auf?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Kugelfisch.jpg",
             answers: ["Kofferfisch", "Kugelfisch", "Seeteufel", "Clownfisch"],
             correct: 1
         },
         {
-            question: "Welches Tier wäscht gern sein Essen?",
+            question: "Welches Tier ist das?",
             image: "Tiere/Waschbaer.jpg",
             answers: ["Waschbär", "Dachs", "Skunk", "Marder"],
             correct: 0
@@ -98,61 +98,61 @@ const QUESTIONS = {
             correct: 1
         },
         {
-            question: "Welche Stadt hat diese verrückte Kirche?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Barcelona.jpg",
             answers: ["Madrid", "Barcelona", "Valencia", "Sevilla"],
             correct: 1
         },
         {
-            question: "In welcher Stadt fährt man Gondel statt Auto?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Venedig.jpg",
             answers: ["Venedig", "Brügge", "Amsterdam", "Stockholm"],
             correct: 0
         },
         {
-            question: "Welche Stadt hat die berühmte Christus-Statue?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Rio de Janeiro.jpg",
             answers: ["Buenos Aires", "Lima", "Rio de Janeiro", "São Paulo"],
             correct: 2
         },
         {
-            question: "In welcher Stadt steht dieser bunte Tempel?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Bangkok.jpg",
             answers: ["Bangkok", "Hanoi", "Jakarta", "Manila"],
             correct: 0
         },
         {
-            question: "Welche Stadt liegt auf zwei Kontinenten?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Istanbul.jpg",
             answers: ["Kairo", "Istanbul", "Teheran", "Beirut"],
             correct: 1
         },
         {
-            question: "In welcher Stadt fährt eine berühmte gelbe Straßenbahn?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Lissabon.jpg",
             answers: ["Porto", "Lissabon", "Sevilla", "Marseille"],
             correct: 1
         },
         {
-            question: "Welche Stadt hat die schönste Brücke Europas?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Prag.jpg",
             answers: ["Wien", "Prag", "Budapest", "Dresden"],
             correct: 1
         },
         {
-            question: "Welche Stadt liegt am Fuß des Tafelbergs?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Kapstadt.jpg",
             answers: ["Johannesburg", "Nairobi", "Kapstadt", "Dakar"],
             correct: 2
         },
         {
-            question: "Welche Stadt hat dieses futuristische Hotel am Wasser?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Singapur.jpg",
             answers: ["Hongkong", "Kuala Lumpur", "Singapur", "Shanghai"],
             correct: 2
         },
         {
-            question: "In welcher Stadt steht dieses prächtige Parlamentsgebäude?",
+            question: "Welche Stadt ist das?",
             image: "Städte/Budapest.jpg",
             answers: ["Wien", "Warschau", "Budapest", "Bukarest"],
             correct: 2
@@ -208,124 +208,122 @@ const QUESTIONS = {
             answers: ["Elton John", "Joko Winterscheidt", "Jan Böhmermann", "Klaas Heufer-Umlauf"],
             correct: 1
         },
-        // === Neue Promis (lustig, 20-35 Zielgruppe) ===
         {
-            question: "Welcher Wrestler wurde Filmstar und riecht, was der Rock kocht?",
+            question: "Wer ist diese Person?",
             image: "Promis/Dwayne Johnson.jpg",
             answers: ["Vin Diesel", "John Cena", "Dwayne Johnson", "Jason Statham"],
             correct: 2
         },
         {
-            question: "Welcher Schauspieler ist quasi mit Deadpool verschmolzen?",
+            question: "Wer ist diese Person?",
             image: "Promis/Ryan Reynolds.jpg",
             answers: ["Chris Pratt", "Ryan Reynolds", "Ryan Gosling", "Chris Evans"],
             correct: 1
         },
         {
-            question: "Wer rappt, kocht mit Martha Stewart und liebt Gin & Juice?",
+            question: "Wer ist diese Person?",
             image: "Promis/Snoop Dogg.jpg",
             answers: ["50 Cent", "Dr. Dre", "Snoop Dogg", "Ice Cube"],
             correct: 2
         },
         {
-            question: "Wer hat bei den Oscars für Schlagzeilen gesorgt – im wahrsten Sinne?",
+            question: "Wer ist diese Person?",
             image: "Promis/Will Smith.jpg",
             answers: ["Denzel Washington", "Will Smith", "Jamie Foxx", "Samuel L. Jackson"],
             correct: 1
         },
         {
-            question: "Welcher Schauspieler ist quasi unsterblich und atmet pure Güte?",
+            question: "Wer ist diese Person?",
             image: "Promis/Keanu Reeves.jpg",
             answers: ["Keanu Reeves", "Tom Cruise", "Brad Pitt", "Johnny Depp"],
             correct: 0
         },
         {
-            question: "Wer spielt MJ und läuft auf jedem roten Teppich alle an die Wand?",
+            question: "Wer ist diese Person?",
             image: "Promis/Zendaya.jpg",
             answers: ["Zendaya", "Halle Bailey", "Florence Pugh", "Sydney Sweeney"],
             correct: 0
         },
         {
-            question: "Welcher Fußballer hat mehr Instagram-Follower als manche Länder Einwohner?",
+            question: "Wer ist diese Person?",
             image: "Promis/Cristiano Ronaldo.jpg",
             answers: ["Lionel Messi", "Neymar", "Cristiano Ronaldo", "Kylian Mbappé"],
             correct: 2
         },
         {
-            question: "Wer singt 'Bad Guy' und hat grüne Haare berühmt gemacht?",
+            question: "Wer ist diese Person?",
             image: "Promis/Billie Eilish.jpg",
             answers: ["Olivia Rodrigo", "Dua Lipa", "Billie Eilish", "Ariana Grande"],
             correct: 2
         },
         {
-            question: "Welcher rothaarige Brite macht Stadien voll – nur mit einer Gitarre?",
+            question: "Wer ist diese Person?",
             image: "Promis/Ed Sheeran.jpg",
             answers: ["Ed Sheeran", "Harry Styles", "Sam Smith", "Lewis Capaldi"],
             correct: 0
         },
         {
-            question: "Wer hat ein eigenes Reality-TV-Imperium und bricht regelmäßig das Internet?",
+            question: "Wer ist diese Person?",
             image: "Promis/Kim Kardashian.jpg",
             answers: ["Paris Hilton", "Kim Kardashian", "Kylie Jenner", "Khloé Kardashian"],
             correct: 1
         },
-        // === Deutsche Trash-TV-Promis ===
         {
-            question: "Welche Katze hat eine eigene TV-Show und ist Deutschlands bekannteste Blondine?",
+            question: "Wer ist diese Person?",
             image: "Promis/Daniela Katzenberger.jpg",
             answers: ["Daniela Katzenberger", "Sophia Thomalla", "Sylvie Meis", "Carmen Geiss"],
             correct: 0
         },
         {
-            question: "Welcher DSDS-Gewinner singt jetzt Schlager und ist Dauergast im Trash-TV?",
+            question: "Wer ist diese Person?",
             image: "Promis/Pietro Lombardi.jpg",
             answers: ["Alexander Klaws", "Pietro Lombardi", "Luca Hänni", "Mehrzad Marashi"],
             correct: 1
         },
         {
-            question: "Wer sucht seit Jahrzehnten den Superstar – und sich selbst am meisten?",
+            question: "Wer ist diese Person?",
             image: "Promis/Dieter Bohlen.jpg",
             answers: ["Dieter Bohlen", "Thomas Gottschalk", "Günther Jauch", "Stefan Raab"],
             correct: 0
         },
         {
-            question: "Welche Dschungelcamp-Gewinnerin ist für ihre charmante Verpeiltheit bekannt?",
+            question: "Wer ist diese Person?",
             image: "Promis/Evelyn Burdecki.jpg",
             answers: ["Jenny Frankhauser", "Evelyn Burdecki", "Georgina Fleur", "Gina-Lisa Lohfink"],
             correct: 1
         },
         {
-            question: "Wer machte 'Da werden Sie geholfen!' zum Kult-Spruch?",
+            question: "Wer ist diese Person?",
             image: "Promis/Verona Pooth.jpg",
             answers: ["Verona Pooth", "Sonja Kraus", "Barbara Schöneberger", "Frauke Ludowig"],
             correct: 0
         },
         {
-            question: "Welche Rapperin und YouTuberin sorgt regelmäßig für Kontroversen?",
+            question: "Wer ist diese Person?",
             image: "Promis/Shirin David.jpg",
             answers: ["Katja Krasavice", "Shirin David", "Juju", "Loredana"],
             correct: 1
         },
         {
-            question: "Welche Influencerin war mal mit einem Fußball-Weltmeister verheiratet?",
+            question: "Wer ist diese Person?",
             image: "Promis/Cathy Hummels.jpg",
             answers: ["Ann-Kathrin Götze", "Jessica Schwarz", "Cathy Hummels", "Lena Gercke"],
             correct: 2
         },
         {
-            question: "Welcher Schlagerstar wurde durch seine Flucht nach Florida berühmt-berüchtigt?",
+            question: "Wer ist diese Person?",
             image: "Promis/Michael Wendler.jpg",
             answers: ["Jürgen Drews", "Michael Wendler", "Costa Cordalis", "DJ Ötzi"],
             correct: 1
         },
         {
-            question: "Wer ist Deutschlands erfolgreichstes Topmodel und hat eine eigene TV-Show?",
+            question: "Wer ist diese Person?",
             image: "Promis/Heidi Klum.jpg",
             answers: ["Claudia Schiffer", "Heidi Klum", "Naomi Campbell", "Lena Gercke"],
             correct: 1
         },
         {
-            question: "Welcher TV-Entertainer hat sich jahrelang versteckt und ist eine deutsche Legende?",
+            question: "Wer ist diese Person?",
             image: "Promis/Stefan Raab.jpg",
             answers: ["Joko Winterscheidt", "Oliver Pocher", "Stefan Raab", "Bastian Pastewka"],
             correct: 2
@@ -347,11 +345,6 @@ const QUESTIONS = {
             question: "Freestyle gibt es seit...",
             answers: ["10 Jahren", "25 Jahren", "15 Jahren", "9 Jahren"],
             correct: 2
-        },
-        {
-            question: "Wie viele Fälle haben wir aktuell?",
-            answers: ["67", "73", "80"],
-            correct: 1
         },
         {
             question: "Wie viele Arbeitsplätze haben wir im Büro?",
@@ -449,6 +442,82 @@ const QUESTIONS = {
         {
             question: "Welches Getränk wird aus Hopfen und Malz hergestellt?",
             answers: ["Wein", "Whisky", "Bier", "Gin"],
+            correct: 2
+        },
+        // === "Wer stiehlt mir die Show"-Style Fragen ===
+        {
+            question: "Welches Land hat die Form eines Stiefels?",
+            answers: ["Spanien", "Griechenland", "Italien", "Portugal"],
+            correct: 2
+        },
+        {
+            question: "Was bedeutet 'LOL' ausgeschrieben?",
+            answers: ["Laughing Out Loud", "Lots Of Love", "Living On Luck", "Licking Old Lemons"],
+            correct: 0
+        },
+        {
+            question: "Wie viele Herzen hat ein Oktopus?",
+            answers: ["1", "2", "3", "4"],
+            correct: 2
+        },
+        {
+            question: "Welche Frucht hat ihre Samen außen?",
+            answers: ["Himbeere", "Kiwi", "Erdbeere", "Feige"],
+            correct: 2
+        },
+        {
+            question: "Was war zuerst da – das Feuerzeug oder das Streichholz?",
+            answers: ["Streichholz", "Feuerzeug", "Beide gleichzeitig", "Keins von beiden"],
+            correct: 1
+        },
+        {
+            question: "In welcher Stadt steht kein Eiffelturm?",
+            answers: ["Paris", "Las Vegas", "Tokio", "London"],
+            correct: 3
+        },
+        {
+            question: "Welches dieser Tiere kann nicht rückwärts laufen?",
+            answers: ["Katze", "Känguru", "Hund", "Pferd"],
+            correct: 1
+        },
+        {
+            question: "Wie viele Tasten hat ein Klavier?",
+            answers: ["76", "84", "88", "92"],
+            correct: 2
+        },
+        {
+            question: "Welcher dieser Seen ist eigentlich ein Meer?",
+            answers: ["Bodensee", "Kaspisches Meer", "Gardasee", "Plattensee"],
+            correct: 1
+        },
+        {
+            question: "Aus welchem Land kommt die Pizza Margherita?",
+            answers: ["Griechenland", "Frankreich", "Spanien", "Italien"],
+            correct: 3
+        },
+        {
+            question: "Wie heißt der Vogel auf dem Twitter/X-Logo?",
+            answers: ["Tweety", "Larry", "Jack", "Blue"],
+            correct: 1
+        },
+        {
+            question: "Welche Farbe hat der 'Gefällt mir'-Daumen bei Facebook?",
+            answers: ["Rot", "Grün", "Blau", "Gelb"],
+            correct: 2
+        },
+        {
+            question: "Wofür steht die Abkürzung 'WLAN'?",
+            answers: ["Wireless Local Area Network", "Wide Line Access Node", "Web Local Air Net", "Wireless Link And Navigate"],
+            correct: 0
+        },
+        {
+            question: "Wie viele Streifen hat die US-Flagge?",
+            answers: ["11", "13", "15", "50"],
+            correct: 1
+        },
+        {
+            question: "Welches dieser Wörter steht NICHT im Duden?",
+            answers: ["Ohrwurm", "Fingerspitzengefühl", "Blitzkrieg", "Schnapsidee"],
             correct: 2
         }
     ]

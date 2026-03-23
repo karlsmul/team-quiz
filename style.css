@@ -662,11 +662,12 @@ body::before {
 }
 
 .question-image-container img {
-    width: 100%;
-    height: auto;
+    max-width: 100%;
+    max-height: 350px;
     object-fit: contain;
     border-radius: 16px;
     display: block;
+    transition: opacity 0.2s ease;
 }
 
 .question-text {
@@ -1062,11 +1063,12 @@ body::before {
 }
 
 .phone-image {
-    width: 100%;
-    height: auto;
+    max-width: 100%;
+    max-height: 250px;
     object-fit: contain;
     border-radius: 16px;
     display: block;
+    transition: opacity 0.2s ease;
 }
 
 .phone-question {

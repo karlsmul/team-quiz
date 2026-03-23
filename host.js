@@ -166,14 +166,17 @@ function showLiveQuestion() {
 
     updateAnswerCount();
 
-    // Image
+    // Image — hide first, then load to prevent mismatch
     const imgContainer = document.getElementById('question-image-container');
     const img = document.getElementById('question-image');
     if (q.image) {
-        img.src = q.image;
         imgContainer.style.display = 'flex';
+        img.style.opacity = '0';
+        img.onload = () => { img.style.opacity = '1'; };
+        img.src = q.image;
     } else {
         imgContainer.style.display = 'none';
+        img.src = '';
     }
 
     // Question
@@ -403,42 +406,47 @@ let audioCtx = null;
 let lastTickSecond = -1;
 
 function getAudioCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     return audioCtx;
 }
 
 function playTick(urgent) {
     try {
         const ctx = getAudioCtx();
+        const t = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.type = 'sine';
         osc.frequency.value = urgent ? 880 : 660;
-        gain.gain.setValueAtTime(urgent ? 0.3 : 0.15, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (urgent ? 0.15 : 0.1));
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + (urgent ? 0.15 : 0.1));
-    } catch (e) { /* Audio nicht verfügbar */ }
+        gain.gain.value = urgent ? 0.25 : 0.12;
+        const dur = urgent ? 0.08 : 0.06;
+        gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+        osc.start(t);
+        osc.stop(t + dur);
+    } catch (e) {}
 }
 
 function playTimeUp() {
     try {
         const ctx = getAudioCtx();
+        const t = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.type = 'square';
-        osc.frequency.value = 440;
-        gain.gain.setValueAtTime(0.25, ctx.currentTime);
-        osc.frequency.setValueAtTime(440, ctx.currentTime);
-        osc.frequency.setValueAtTime(330, ctx.currentTime + 0.15);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.4);
-    } catch (e) { /* Audio nicht verfügbar */ }
+        osc.frequency.setValueAtTime(440, t);
+        osc.frequency.setValueAtTime(330, t + 0.12);
+        gain.gain.value = 0.2;
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+        osc.start(t);
+        osc.stop(t + 0.3);
+    } catch (e) {}
 }
 
 // ===== TIMER =====
@@ -466,16 +474,14 @@ function startTimer(onTimeout) {
         timerBar.style.width = (fraction * 100) + '%';
 
         const currentSecond = Math.ceil(timeLeft);
-        timerDisplay.textContent = currentSecond;
-
-        // Tick sound on each second change
-        if (currentSecond !== lastTickSecond && currentSecond > 0) {
-            lastTickSecond = currentSecond;
-            if (fraction <= 0.25) {
-                playTick(true);
-            } else if (fraction <= 0.5) {
-                playTick(false);
+        if (currentSecond !== lastTickSecond) {
+            timerDisplay.textContent = currentSecond;
+            // Tick sound only on second change, only in last half
+            if (currentSecond > 0 && currentSecond < lastTickSecond) {
+                if (fraction <= 0.25) playTick(true);
+                else if (fraction <= 0.5) playTick(false);
             }
+            lastTickSecond = currentSecond;
         }
 
         if (fraction <= 0.25) {
@@ -491,7 +497,7 @@ function startTimer(onTimeout) {
             playTimeUp();
             onTimeout();
         }
-    }, 50);
+    }, 100);
 }
 
 function stopTimer() {
@@ -590,8 +596,15 @@ function showOfflineQuestion() {
 
     const imgContainer = document.getElementById('question-image-container');
     const img = document.getElementById('question-image');
-    if (q.image) { img.src = q.image; imgContainer.style.display = 'flex'; }
-    else { imgContainer.style.display = 'none'; }
+    if (q.image) {
+        imgContainer.style.display = 'flex';
+        img.style.opacity = '0';
+        img.onload = () => { img.style.opacity = '1'; };
+        img.src = q.image;
+    } else {
+        imgContainer.style.display = 'none';
+        img.src = '';
+    }
 
     document.getElementById('question-text').textContent = q.question;
 
