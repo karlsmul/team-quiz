@@ -12,6 +12,7 @@ let gameQuestions = [];
 let currentQIndex = 0;
 let timerInterval = null;
 let timeLeft = 0;
+let questionRevealed = false;  // prevents double-reveal
 let livePlayers = {};    // { id: { name, score, correct, wrong, timeout } }
 let liveAnswers = {};    // answers for current question { playerId: { answer, timestamp } }
 
@@ -154,6 +155,8 @@ function startLiveQuiz() {
 }
 
 function showLiveQuestion() {
+    stopTimer();
+    questionRevealed = false;
     const q = gameQuestions[currentQIndex];
     liveAnswers = {};
 
@@ -247,7 +250,8 @@ function updateAnswerCount() {
 }
 
 function revealAnswer() {
-    if (timerInterval === null && Object.keys(liveAnswers).length === 0) return; // Already revealed
+    if (questionRevealed) return;
+    questionRevealed = true;
     stopTimer();
     roomRef.child('currentAnswers').off();
 
@@ -404,6 +408,7 @@ function renderScoreboard() {
 
 let audioCtx = null;
 let lastTickSecond = -1;
+let activeOscillators = [];
 
 function getAudioCtx() {
     if (!audioCtx) {
@@ -413,7 +418,15 @@ function getAudioCtx() {
     return audioCtx;
 }
 
+function stopAllSounds() {
+    activeOscillators.forEach(osc => {
+        try { osc.stop(); } catch (e) {}
+    });
+    activeOscillators = [];
+}
+
 function playTick(urgent) {
+    if (questionRevealed) return;
     try {
         const ctx = getAudioCtx();
         const t = ctx.currentTime;
@@ -428,6 +441,10 @@ function playTick(urgent) {
         gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
         osc.start(t);
         osc.stop(t + dur);
+        activeOscillators.push(osc);
+        osc.onended = () => {
+            activeOscillators = activeOscillators.filter(o => o !== osc);
+        };
     } catch (e) {}
 }
 
@@ -446,6 +463,10 @@ function playTimeUp() {
         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
         osc.start(t);
         osc.stop(t + 0.3);
+        activeOscillators.push(osc);
+        osc.onended = () => {
+            activeOscillators = activeOscillators.filter(o => o !== osc);
+        };
     } catch (e) {}
 }
 
@@ -505,6 +526,7 @@ function stopTimer() {
         clearInterval(timerInterval);
         timerInterval = null;
     }
+    stopAllSounds();
 }
 
 // ===== OFFLINE MODE =====
@@ -583,6 +605,8 @@ function startOfflineQuiz() {
 }
 
 function showOfflineQuestion() {
+    stopTimer();
+    questionRevealed = false;
     const q = gameQuestions[currentQIndex];
     switchScreen('quiz-screen');
 
