@@ -60,6 +60,7 @@
 
     <!-- LOBBY SCREEN -->
     <div id="lobby-screen" class="screen">
+        <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Vollbild">⛶</button>
         <div class="logo-container">
             <h1 class="logo">Team Quiz</h1>
         </div>
@@ -102,6 +103,11 @@
                             <button class="cat-btn active" data-cat="custom" onclick="toggleCategory(this)">Allgemein</button>
                         </div>
                     </div>
+                    <div class="setting" id="team-ratio-setting" style="display:none;">
+                        <label>Team-Fragen Anteil: <span id="team-ratio-display">50</span>%</label>
+                        <input type="range" id="team-ratio" min="0" max="100" value="50" step="10"
+                               oninput="document.getElementById('team-ratio-display').textContent = this.value">
+                    </div>
                 </div>
 
                 <div class="lobby-players-card">
@@ -120,13 +126,17 @@
 
     <!-- QUIZ SCREEN -->
     <div id="quiz-screen" class="screen">
+        <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Vollbild">⛶</button>
         <div class="quiz-top">
             <div class="quiz-header">
                 <div class="progress-info">
                     <span id="question-number">1/10</span>
                     <span id="category-badge" class="category-badge">Team</span>
                 </div>
-                <div id="answer-count" class="answer-count">0/0 beantwortet</div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div id="answer-count" class="answer-count">0/0 beantwortet</div>
+                    <button id="sound-toggle" class="btn-sound" onclick="toggleSound()" title="Sound">🔊</button>
+                </div>
             </div>
             <div class="timer-bar-container">
                 <div id="timer-bar" class="timer-bar"></div>
@@ -149,16 +159,26 @@
                 <div class="quiz-controls">
                     <button class="btn-control btn-abort" onclick="abortQuiz()">Abbrechen</button>
                     <button class="btn-control btn-skip" onclick="skipQuestion()">Überspringen</button>
+                    <button class="btn-control btn-pause" id="pause-btn" onclick="togglePause()">⏸️ Pause</button>
                 </div>
             </div>
 
             <div id="scoreboard" class="scoreboard">
             </div>
         </div>
+
+        <div id="pause-overlay" class="pause-overlay" style="display:none;">
+            <div class="pause-card">
+                <div class="pause-emoji">⏸️</div>
+                <h2>Pause</h2>
+                <button class="btn-start" onclick="togglePause()">▶️ Weiter</button>
+            </div>
+        </div>
     </div>
 
     <!-- RESULT SCREEN -->
     <div id="result-screen" class="screen">
+        <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Vollbild">⛶</button>
         <div class="result-card">
             <div class="trophy-animation">🏆</div>
             <h2 class="winner-title">Gewinner</h2>
@@ -171,7 +191,7 @@
             <div id="ranking-list" class="ranking-list"></div>
         </div>
 
-        <button class="btn-start" onclick="backToStart()">
+        <button class="btn-start" onclick="playAgain()">
             Nochmal spielen!
         </button>
     </div>
@@ -219,8 +239,16 @@
                     <button class="cat-btn active" data-cat="custom" onclick="toggleCategory(this)">Allgemein</button>
                 </div>
             </div>
+            <div class="setting" id="offline-team-ratio-setting" style="display:none;">
+                <label>Team-Fragen Anteil: <span id="offline-team-ratio-display">50</span>%</label>
+                <input type="range" id="offline-team-ratio" min="0" max="100" value="50" step="10"
+                       oninput="document.getElementById('offline-team-ratio-display').textContent = this.value">
+            </div>
         </div>
-        <button class="btn-start" id="offline-start-btn" onclick="startOfflineQuiz()">Los geht's!</button>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button class="btn-start" id="offline-start-btn" onclick="startOfflineQuiz()">Los geht's!</button>
+            <button class="btn-start btn-secondary" onclick="backToStartFromOffline()">← Zurück</button>
+        </div>
     </div>
 
     <script src="firebase-config.js"></script>

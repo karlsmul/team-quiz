@@ -254,7 +254,11 @@ function showPhoneFeedback(data) {
     } else if (result.correct) {
         emojiEl.textContent = '✅';
         titleEl.textContent = 'Richtig!';
-        pointsEl.textContent = '+' + result.points + ' Punkte';
+        let pointsText = '+' + result.points + ' Punkte';
+        if (result.streak >= 3) {
+            pointsText += ` 🔥 Streak x${result.streak}!`;
+        }
+        pointsEl.textContent = pointsText;
         spawnConfetti(15);
     } else {
         emojiEl.textContent = '❌';

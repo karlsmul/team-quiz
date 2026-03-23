@@ -7,18 +7,25 @@ let isLiveMode = false;
 let firebaseReady = false;
 
 // Game state
-let config = { timerSeconds: 10, questionCount: 10, categories: ['team', 'animals', 'cities', 'celebrities', 'custom'] };
+let config = { timerSeconds: 10, questionCount: 10, categories: ['team', 'animals', 'cities', 'celebrities', 'custom'], teamRatio: 50 };
 let gameQuestions = [];
 let currentQIndex = 0;
 let timerInterval = null;
 let timeLeft = 0;
 let questionRevealed = false;  // prevents double-reveal
-let livePlayers = {};    // { id: { name, score, correct, wrong, timeout } }
+let livePlayers = {};    // { id: { name, score, correct, wrong, timeout, streak } }
 let liveAnswers = {};    // answers for current question { playerId: { answer, timestamp } }
 
 // Offline state
 let offlinePlayers = [];
 let offlineCurrentPlayer = 0;
+
+// Sound control
+let soundEnabled = true;
+
+// Pause state
+let isPaused = false;
+let timerOnTimeout = null;
 
 // ===== INIT =====
 
@@ -31,6 +38,7 @@ function initFirebase() {
         firebase.initializeApp(FIREBASE_CONFIG);
         db = firebase.database();
         firebaseReady = true;
+        loadConfig();
         switchScreen('start-screen');
     } catch (e) {
         console.error('Firebase init failed:', e);
@@ -66,7 +74,7 @@ function createRoom() {
     // Listen for players joining
     roomRef.child('players').on('child_added', (snap) => {
         const player = snap.val();
-        livePlayers[snap.key] = { ...player, score: 0, correct: 0, wrong: 0, timeout: 0 };
+        livePlayers[snap.key] = { ...player, score: 0, correct: 0, wrong: 0, timeout: 0, streak: 0 };
         renderLobbyPlayers();
     });
 
@@ -130,17 +138,19 @@ function renderLobbyPlayers() {
 // ===== LIVE QUIZ =====
 
 function startLiveQuiz() {
+    saveConfig();
     isLiveMode = true;
     config.timerSeconds = parseInt(document.getElementById('timer-setting').value);
     config.questionCount = parseInt(document.getElementById('question-count').value);
+    config.teamRatio = parseInt(document.getElementById('team-ratio')?.value || 50);
     config.categories = [];
     document.querySelectorAll('#lobby-screen .cat-btn.active').forEach(btn => {
         config.categories.push(btn.dataset.cat);
     });
     if (config.categories.length === 0) config.categories = ['custom'];
 
-    // Build questions (team questions prioritized — every other question)
-    gameQuestions = buildQuestionList(config.categories, config.questionCount);
+    // Build questions
+    gameQuestions = buildQuestionList(config.categories, config.questionCount, config.teamRatio);
     currentQIndex = 0;
 
     // Reset player scores
@@ -149,6 +159,7 @@ function startLiveQuiz() {
         livePlayers[id].correct = 0;
         livePlayers[id].wrong = 0;
         livePlayers[id].timeout = 0;
+        livePlayers[id].streak = 0;
     });
 
     showLiveQuestion();
@@ -267,7 +278,6 @@ function revealAnswer() {
     }
 
     // Calculate scores for each player
-    // Get the question start time for time bonus calculation
     const playerIds = Object.keys(livePlayers);
     let answerResults = {};
 
@@ -276,20 +286,31 @@ function revealAnswer() {
         if (!answer) {
             // Timeout
             livePlayers[pid].timeout++;
-            answerResults[pid] = { correct: false, timeout: true, points: 0 };
+            livePlayers[pid].streak = 0;
+            answerResults[pid] = { correct: false, timeout: true, points: 0, streak: 0 };
         } else {
             const isCorrect = q.allCorrect || answer.answer === q.correct;
             if (isCorrect) {
                 // Time bonus: faster = more points
                 const timeTaken = Math.min(answer.timeTaken || config.timerSeconds, config.timerSeconds);
                 const timeBonus = Math.ceil(((config.timerSeconds - timeTaken) / config.timerSeconds) * 100);
-                const points = 100 + timeBonus;
+                let points = 100 + timeBonus;
+
+                // Streak bonus
+                livePlayers[pid].streak++;
+                let streakBonus = 0;
+                if (livePlayers[pid].streak >= 3) {
+                    streakBonus = livePlayers[pid].streak * 25;
+                    points += streakBonus;
+                }
+
                 livePlayers[pid].score += points;
                 livePlayers[pid].correct++;
-                answerResults[pid] = { correct: true, timeout: false, points };
+                answerResults[pid] = { correct: true, timeout: false, points, streak: livePlayers[pid].streak, streakBonus };
             } else {
                 livePlayers[pid].wrong++;
-                answerResults[pid] = { correct: false, timeout: false, points: 0 };
+                livePlayers[pid].streak = 0;
+                answerResults[pid] = { correct: false, timeout: false, points: 0, streak: 0 };
             }
         }
     });
@@ -302,7 +323,8 @@ function revealAnswer() {
             score: livePlayers[pid].score,
             correct: livePlayers[pid].correct,
             wrong: livePlayers[pid].wrong,
-            timeout: livePlayers[pid].timeout
+            timeout: livePlayers[pid].timeout,
+            streak: livePlayers[pid].streak
         };
     });
 
@@ -341,7 +363,8 @@ function showLiveResults() {
             score: livePlayers[pid].score,
             correct: livePlayers[pid].correct,
             wrong: livePlayers[pid].wrong,
-            timeout: livePlayers[pid].timeout
+            timeout: livePlayers[pid].timeout,
+            streak: livePlayers[pid].streak
         };
     });
 
@@ -354,7 +377,16 @@ function showLiveResults() {
     const sorted = Object.entries(livePlayers).sort((a, b) => b[1].score - a[1].score);
     const winner = sorted[0][1];
 
-    document.getElementById('winner-name').textContent = winner.name;
+    // Check if all have 0 score
+    if (winner.score === 0) {
+        document.querySelector('.winner-title').textContent = 'Nächstes Mal wird\'s besser!';
+        document.getElementById('winner-name').textContent = 'Keiner 😅';
+        document.querySelector('.trophy-animation').textContent = '🤷';
+    } else {
+        document.querySelector('.winner-title').textContent = 'Gewinner';
+        document.getElementById('winner-name').textContent = winner.name;
+        document.querySelector('.trophy-animation').textContent = '🏆';
+    }
     document.getElementById('winner-score').textContent = winner.score;
 
     const medals = ['🥇', '🥈', '🥉'];
@@ -425,8 +457,16 @@ function stopAllSounds() {
     activeOscillators = [];
 }
 
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    const btn = document.getElementById('sound-toggle');
+    if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+    const lobbyBtn = document.getElementById('sound-toggle-lobby');
+    if (lobbyBtn) lobbyBtn.textContent = soundEnabled ? '🔊' : '🔇';
+}
+
 function playTick(urgent) {
-    if (questionRevealed) return;
+    if (!soundEnabled || questionRevealed) return;
     try {
         const ctx = getAudioCtx();
         const t = ctx.currentTime;
@@ -449,6 +489,7 @@ function playTick(urgent) {
 }
 
 function playTimeUp() {
+    if (!soundEnabled) return;
     try {
         const ctx = getAudioCtx();
         const t = ctx.currentTime;
@@ -472,7 +513,71 @@ function playTimeUp() {
 
 // ===== TIMER =====
 
+function togglePause() {
+    if (isPaused) {
+        resumeTimer();
+    } else {
+        pauseTimer();
+    }
+}
+
+function pauseTimer() {
+    if (!timerInterval || isPaused) return;
+    isPaused = true;
+    clearInterval(timerInterval);
+    timerInterval = null;
+    document.getElementById('pause-overlay').style.display = 'flex';
+    document.getElementById('pause-btn').textContent = '▶️ Weiter';
+}
+
+function resumeTimer() {
+    if (!isPaused) return;
+    isPaused = false;
+    document.getElementById('pause-overlay').style.display = 'none';
+    document.getElementById('pause-btn').textContent = '⏸️ Pause';
+    const remaining = timeLeft * 1000;
+    const timerBar = document.getElementById('timer-bar');
+    const timerDisplay = document.getElementById('timer-display');
+    const totalMs = config.timerSeconds * 1000;
+    const startTime = Date.now() - (totalMs - remaining);
+
+    timerInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const rem = Math.max(0, totalMs - elapsed);
+        const fraction = rem / totalMs;
+
+        timeLeft = rem / 1000;
+        timerBar.style.width = (fraction * 100) + '%';
+
+        const currentSecond = Math.ceil(timeLeft);
+        if (currentSecond !== lastTickSecond) {
+            timerDisplay.textContent = currentSecond;
+            if (currentSecond > 0 && currentSecond < lastTickSecond) {
+                if (fraction <= 0.25) playTick(true);
+                else if (fraction <= 0.5) playTick(false);
+            }
+            lastTickSecond = currentSecond;
+        }
+
+        if (fraction <= 0.25) {
+            timerBar.className = 'timer-bar danger';
+            timerDisplay.className = 'timer-display danger';
+        } else if (fraction <= 0.5) {
+            timerBar.className = 'timer-bar warning';
+            timerDisplay.className = 'timer-display warning';
+        }
+
+        if (rem <= 0) {
+            stopTimer();
+            playTimeUp();
+            if (timerOnTimeout) timerOnTimeout();
+        }
+    }, 100);
+}
+
 function startTimer(onTimeout) {
+    timerOnTimeout = onTimeout;
+    isPaused = false;
     timeLeft = config.timerSeconds;
     lastTickSecond = config.timerSeconds;
     const timerBar = document.getElementById('timer-bar');
@@ -482,6 +587,8 @@ function startTimer(onTimeout) {
     timerBar.className = 'timer-bar';
     timerDisplay.className = 'timer-display';
     timerDisplay.textContent = timeLeft;
+    document.getElementById('pause-overlay').style.display = 'none';
+    document.getElementById('pause-btn').textContent = '⏸️ Pause';
 
     const startTime = Date.now();
     const totalMs = config.timerSeconds * 1000;
@@ -541,7 +648,7 @@ function addOfflinePlayer() {
     if (!name) return;
     if (offlinePlayers.some(p => p.name.toLowerCase() === name.toLowerCase())) { input.value = ''; return; }
 
-    offlinePlayers.push({ name, score: 0, correct: 0, wrong: 0, timeout: 0 });
+    offlinePlayers.push({ name, score: 0, correct: 0, wrong: 0, timeout: 0, streak: 0 });
     input.value = '';
     renderOfflinePlayerList();
     updateOfflineStartBtn();
@@ -584,21 +691,23 @@ function adjustCountOffline(delta) {
 }
 
 function startOfflineQuiz() {
+    saveConfig();
     if (offlinePlayers.length === 0) return;
     isLiveMode = false;
 
     config.timerSeconds = parseInt(document.getElementById('offline-timer-setting').value);
     config.questionCount = parseInt(document.getElementById('offline-question-count').value);
+    config.teamRatio = parseInt(document.getElementById('offline-team-ratio')?.value || 50);
     config.categories = [];
     document.querySelectorAll('#offline-categories .cat-btn.active').forEach(btn => {
         config.categories.push(btn.dataset.cat);
     });
     if (config.categories.length === 0) config.categories = ['custom'];
 
-    offlinePlayers.forEach(p => { p.score = 0; p.correct = 0; p.wrong = 0; p.timeout = 0; });
+    offlinePlayers.forEach(p => { p.score = 0; p.correct = 0; p.wrong = 0; p.timeout = 0; p.streak = 0; });
     offlineCurrentPlayer = 0;
 
-    gameQuestions = buildQuestionList(config.categories, config.questionCount);
+    gameQuestions = buildQuestionList(config.categories, config.questionCount, config.teamRatio);
     currentQIndex = 0;
 
     showOfflineQuestion();
@@ -658,13 +767,24 @@ function showOfflineQuestion() {
 
             if (isCorrect) {
                 const timeBonus = Math.ceil((timeLeft / config.timerSeconds) * 100);
-                cp.score += 100 + timeBonus;
+                let points = 100 + timeBonus;
+
+                // Streak bonus
+                cp.streak++;
+                if (cp.streak >= 3) {
+                    points += cp.streak * 25;
+                }
+
+                cp.score += points;
                 cp.correct++;
-                showFeedback('✅');
+                let feedbackText = '✅';
+                if (cp.streak >= 3) feedbackText = `🔥 Streak x${cp.streak}!`;
+                showFeedback(feedbackText);
                 spawnConfetti(15);
             } else {
                 buttons[i].classList.add('wrong');
                 cp.wrong++;
+                cp.streak = 0;
                 showFeedback('❌');
             }
             renderScoreboard();
@@ -689,6 +809,7 @@ function showOfflineQuestion() {
         if (q.allCorrect) buttons.forEach(b => b.classList.add('correct'));
         else buttons[q.correct].classList.add('correct');
         cp.timeout++;
+        cp.streak = 0;
         showFeedback('⏰');
         setTimeout(() => {
             offlineCurrentPlayer = (offlineCurrentPlayer + 1) % offlinePlayers.length;
@@ -703,7 +824,16 @@ function showOfflineResults() {
     const sorted = [...offlinePlayers].sort((a, b) => b.score - a.score);
     const winner = sorted[0];
 
-    document.getElementById('winner-name').textContent = winner.name;
+    // Check if all have 0 score
+    if (winner.score === 0) {
+        document.querySelector('.winner-title').textContent = 'Nächstes Mal wird\'s besser!';
+        document.getElementById('winner-name').textContent = 'Keiner 😅';
+        document.querySelector('.trophy-animation').textContent = '🤷';
+    } else {
+        document.querySelector('.winner-title').textContent = 'Gewinner';
+        document.getElementById('winner-name').textContent = winner.name;
+        document.querySelector('.trophy-animation').textContent = '🏆';
+    }
     document.getElementById('winner-score').textContent = winner.score;
 
     const medals = ['🥇', '🥈', '🥉'];
@@ -794,6 +924,36 @@ function abortQuiz() {
 
 // ===== NAVIGATION =====
 
+function backToStartFromOffline() {
+    if (firebaseReady) switchScreen('start-screen');
+    else switchScreen('setup-screen');
+}
+
+function playAgain() {
+    if (isLiveMode) {
+        // Reset scores, keep players
+        Object.keys(livePlayers).forEach(id => {
+            livePlayers[id].score = 0;
+            livePlayers[id].correct = 0;
+            livePlayers[id].wrong = 0;
+            livePlayers[id].timeout = 0;
+            livePlayers[id].streak = 0;
+        });
+        // Go back to lobby
+        roomRef.update({ state: 'lobby' });
+        showLobby();
+        renderLobbyPlayers();
+        switchScreen('lobby-screen');
+    } else {
+        // Offline: keep players, go back to offline setup
+        offlinePlayers.forEach(p => { p.score = 0; p.correct = 0; p.wrong = 0; p.timeout = 0; p.streak = 0; });
+        offlineCurrentPlayer = 0;
+        switchScreen('offline-start-screen');
+        renderOfflinePlayerList();
+        updateOfflineStartBtn();
+    }
+}
+
 function backToStart() {
     if (roomRef) {
         roomRef.remove();
@@ -829,11 +989,26 @@ function adjustCount(delta) {
 
 function toggleCategory(btn) {
     btn.classList.toggle('active');
+    updateTeamRatioVisibility(btn.closest('.category-toggles'));
 }
 
-// ===== QUESTION BUILDER (Team-Fragen bevorzugt) =====
+function updateTeamRatioVisibility(categoryContainer) {
+    const isTeamActive = categoryContainer.querySelector('[data-cat="team"]').classList.contains('active');
+    const parentScreen = categoryContainer.closest('#lobby-screen') ? 'lobby' : 'offline';
+    const ratioSetting = parentScreen === 'lobby'
+        ? document.getElementById('team-ratio-setting')
+        : document.getElementById('offline-team-ratio-setting');
 
-function buildQuestionList(categories, count) {
+    if (ratioSetting) {
+        ratioSetting.style.display = isTeamActive ? 'block' : 'none';
+    }
+}
+
+// ===== QUESTION BUILDER =====
+
+function buildQuestionList(categories, count, teamRatio) {
+    if (teamRatio === undefined) teamRatio = 50;
+
     // Split into team questions and other questions
     let teamPool = [];
     let otherPool = [];
@@ -866,19 +1041,27 @@ function buildQuestionList(categories, count) {
         return shuffleArray(otherPool).slice(0, count);
     }
 
-    // Interleave: every other slot is a team question (until team pool is exhausted)
+    // Calculate how many team questions to include based on ratio
+    const teamCount = Math.round((count * teamRatio) / 100);
+    const otherCount = count - teamCount;
+
     const result = [];
     let tIdx = 0;
     let oIdx = 0;
 
+    // Interleave with ratio consideration
     for (let i = 0; i < count; i++) {
-        if (tIdx < teamPool.length && (i % 2 === 0 || oIdx >= otherPool.length)) {
-            // Even slots → team question (as long as available)
+        const teamQuestionsNeeded = teamCount - Math.floor(result.filter(q => q.category === 'team').length);
+        const otherQuestionsNeeded = otherCount - Math.floor(result.filter(q => q.category !== 'team').length);
+
+        if (tIdx < teamPool.length && (teamQuestionsNeeded > 0) && (i % 2 === 0 || oIdx >= otherPool.length || otherQuestionsNeeded <= 0)) {
             result.push(teamPool[tIdx++]);
-        } else if (oIdx < otherPool.length) {
+        } else if (oIdx < otherPool.length && otherQuestionsNeeded > 0) {
             result.push(otherPool[oIdx++]);
+        } else if (tIdx < teamPool.length && teamQuestionsNeeded > 0) {
+            result.push(teamPool[tIdx++]);
         } else {
-            break; // No more questions
+            break;
         }
     }
 
@@ -887,12 +1070,69 @@ function buildQuestionList(categories, count) {
 
 // ===== UTILITIES =====
 
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+function saveConfig() {
+    const cfg = {
+        timerSeconds: config.timerSeconds,
+        questionCount: config.questionCount,
+        categories: config.categories,
+        teamRatio: config.teamRatio || 50
+    };
+    try { localStorage.setItem('quizConfig', JSON.stringify(cfg)); } catch(e) {}
+}
+
+function loadConfig() {
+    try {
+        const saved = JSON.parse(localStorage.getItem('quizConfig'));
+        if (saved) {
+            // Apply to offline settings
+            const offlineTimer = document.getElementById('offline-timer-setting');
+            const offlineCount = document.getElementById('offline-question-count');
+            const offlineRatio = document.getElementById('offline-team-ratio');
+            if (offlineTimer) offlineTimer.value = saved.timerSeconds || 10;
+            if (offlineCount) offlineCount.value = saved.questionCount || 10;
+            if (offlineRatio) offlineRatio.value = saved.teamRatio || 50;
+
+            // Apply to lobby settings
+            const lobbyTimer = document.getElementById('timer-setting');
+            const lobbyCount = document.getElementById('question-count');
+            const lobbyRatio = document.getElementById('team-ratio');
+            if (lobbyTimer) lobbyTimer.value = saved.timerSeconds || 10;
+            if (lobbyCount) lobbyCount.value = saved.questionCount || 10;
+            if (lobbyRatio) lobbyRatio.value = saved.teamRatio || 50;
+
+            // Apply categories
+            if (saved.categories) {
+                document.querySelectorAll('.cat-btn').forEach(btn => {
+                    if (saved.categories.includes(btn.dataset.cat)) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                // Update team ratio visibility after categories loaded
+                const lobbyCategories = document.querySelector('#lobby-screen .category-toggles');
+                const offlineCategories = document.querySelector('#offline-categories');
+                if (lobbyCategories) updateTeamRatioVisibility(lobbyCategories);
+                if (offlineCategories) updateTeamRatioVisibility(offlineCategories);
+            }
+        }
+    } catch(e) {}
+}
+
 function showFeedback(emoji) {
     const overlay = document.createElement('div');
     overlay.className = 'feedback-overlay';
     overlay.innerHTML = `<div class="feedback-text">${emoji}</div>`;
     document.body.appendChild(overlay);
-    setTimeout(() => overlay.remove(), 1000);
+    setTimeout(() => overlay.remove(), 1500);
 }
 
 function spawnConfetti(count) {
@@ -945,5 +1185,12 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ===== START =====
+// ===== STARTUP =====
+document.addEventListener('DOMContentLoaded', () => {
+    const lobbyCategories = document.querySelector('#lobby-screen .category-toggles');
+    const offlineCategories = document.querySelector('#offline-categories');
+    if (lobbyCategories) updateTeamRatioVisibility(lobbyCategories);
+    if (offlineCategories) updateTeamRatioVisibility(offlineCategories);
+});
+
 initFirebase();

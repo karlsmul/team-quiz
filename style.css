@@ -684,6 +684,12 @@ body::before {
     width: 100%;
 }
 
+.answer-btn:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    justify-self: center;
+}
+
 .answer-btn {
     padding: 1.2rem 1.5rem;
     border-radius: 16px;
@@ -1219,6 +1225,128 @@ body::before {
     30% { transform: scale(1.3); opacity: 1; }
     60% { transform: scale(1); opacity: 1; }
     100% { transform: scale(1); opacity: 0; }
+}
+
+/* ===== SOUND TOGGLE ===== */
+.btn-sound {
+    background: none;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.btn-sound:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+/* ===== FULLSCREEN BUTTON ===== */
+.btn-fullscreen {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    background: var(--card-bg);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-fullscreen:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+/* ===== PAUSE OVERLAY ===== */
+.pause-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+}
+
+.pause-card {
+    text-align: center;
+    padding: 3rem;
+    background: var(--card-bg);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pause-emoji {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+.pause-card h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== STREAK BADGE ===== */
+.streak-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff9a00, #ff5500);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    animation: pulse 0.5s ease-in-out infinite;
+}
+
+/* ===== SLIDER STYLES ===== */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+    outline: none;
+    margin-top: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    cursor: pointer;
+    border: 2px solid white;
 }
 
 /* ===== RESPONSIVE ===== */
