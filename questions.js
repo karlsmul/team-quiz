@@ -161,169 +161,169 @@ const QUESTIONS = {
 
     celebrities: [
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Pop-Musik)",
             image: "Promis/Taylor Swift.jpg",
             answers: ["Beyoncé", "Adele", "Taylor Swift", "Rihanna"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: US-Politik)",
             image: "Promis/Obama.jpg",
             answers: ["Joe Biden", "Barack Obama", "Bill Clinton", "George Bush"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Deutsche Politik)",
             image: "Promis/Steinmeier.jpg",
             answers: ["Olaf Scholz", "Frank-Walter Steinmeier", "Christian Lindner", "Friedrich Merz"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: King of Pop)",
             image: "Promis/Michael Jackson.jpg",
             answers: ["Prince", "Michael Jackson", "Stevie Wonder", "Lionel Richie"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Klassische Musik)",
             image: "Promis/Mozart.jpg",
             answers: ["Beethoven", "Bach", "Mozart", "Haydn"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Bürgerrechtler)",
             image: "Promis/Martin Luther King.jpg",
             answers: ["Nelson Mandela", "Malcolm X", "Martin Luther King", "Muhammad Ali"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Humanitäre Hilfe)",
             image: "Promis/Mutter Theresa.jpg",
             answers: ["Queen Victoria", "Mutter Teresa", "Rosa Parks", "Florence Nightingale"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: TV-Entertainer)",
             image: "Promis/Joko.jpg",
             answers: ["Elton John", "Joko Winterscheidt", "Jan Böhmermann", "Klaas Heufer-Umlauf"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Wrestling & Hollywood)",
             image: "Promis/Dwayne Johnson.jpg",
             answers: ["Vin Diesel", "John Cena", "Dwayne Johnson", "Jason Statham"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Deadpool-Darsteller)",
             image: "Promis/Ryan Reynolds.jpg",
             answers: ["Chris Pratt", "Ryan Reynolds", "Ryan Gosling", "Chris Evans"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: US-Rap-Legende)",
             image: "Promis/Snoop Dogg.jpg",
             answers: ["50 Cent", "Dr. Dre", "Snoop Dogg", "Ice Cube"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Oscar-Ohrfeige)",
             image: "Promis/Will Smith.jpg",
             answers: ["Denzel Washington", "Will Smith", "Jamie Foxx", "Samuel L. Jackson"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Matrix & John Wick)",
             image: "Promis/Keanu Reeves.jpg",
             answers: ["Keanu Reeves", "Tom Cruise", "Brad Pitt", "Johnny Depp"],
             correct: 0
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Euphoria & Spider-Man)",
             image: "Promis/Zendaya.jpg",
             answers: ["Zendaya", "Halle Bailey", "Florence Pugh", "Sydney Sweeney"],
             correct: 0
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Fußball-Superstar)",
             image: "Promis/Cristiano Ronaldo.jpg",
             answers: ["Lionel Messi", "Neymar", "Cristiano Ronaldo", "Kylian Mbappé"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Bad Guy-Sängerin)",
             image: "Promis/Billie Eilish.jpg",
             answers: ["Olivia Rodrigo", "Dua Lipa", "Billie Eilish", "Ariana Grande"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Singer-Songwriter mit Gitarre)",
             image: "Promis/Ed Sheeran.jpg",
             answers: ["Ed Sheeran", "Harry Styles", "Sam Smith", "Lewis Capaldi"],
             correct: 0
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Reality-TV-Imperium)",
             image: "Promis/Kim Kardashian.jpg",
             answers: ["Paris Hilton", "Kim Kardashian", "Kylie Jenner", "Khloé Kardashian"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Reality-TV-Blondine)",
             image: "Promis/Daniela Katzenberger.jpg",
             answers: ["Daniela Katzenberger", "Sophia Thomalla", "Sylvie Meis", "Carmen Geiss"],
             correct: 0
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: DSDS & Schlager)",
             image: "Promis/Pietro Lombardi.jpg",
             answers: ["Alexander Klaws", "Pietro Lombardi", "Luca Hänni", "Mehrzad Marashi"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: DSDS-Jury-Chef)",
             image: "Promis/Dieter Bohlen.jpg",
             answers: ["Dieter Bohlen", "Thomas Gottschalk", "Günther Jauch", "Stefan Raab"],
             correct: 0
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Dschungelcamp-Gewinnerin)",
             image: "Promis/Evelyn Burdecki.jpg",
             answers: ["Jenny Frankhauser", "Evelyn Burdecki", "Georgina Fleur", "Gina-Lisa Lohfink"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: 'Da werden Sie geholfen!')",
             image: "Promis/Verona Pooth.jpg",
             answers: ["Verona Pooth", "Sonja Kraus", "Barbara Schöneberger", "Frauke Ludowig"],
             correct: 0
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Rap & YouTube)",
             image: "Promis/Shirin David.jpg",
             answers: ["Katja Krasavice", "Shirin David", "Juju", "Loredana"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Influencerin & Spielerfrau)",
             image: "Promis/Cathy Hummels.jpg",
             answers: ["Ann-Kathrin Götze", "Jessica Schwarz", "Cathy Hummels", "Lena Gercke"],
             correct: 2
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Schlager & Florida)",
             image: "Promis/Michael Wendler.jpg",
             answers: ["Jürgen Drews", "Michael Wendler", "Costa Cordalis", "DJ Ötzi"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: Germany's Next Topmodel)",
             image: "Promis/Heidi Klum.jpg",
             answers: ["Claudia Schiffer", "Heidi Klum", "Naomi Campbell", "Lena Gercke"],
             correct: 1
         },
         {
-            question: "Wer ist diese Person?",
+            question: "Wer ist diese Person? (Hinweis: TV Total & Schlag den Raab)",
             image: "Promis/Stefan Raab.jpg",
             answers: ["Joko Winterscheidt", "Oliver Pocher", "Stefan Raab", "Bastian Pastewka"],
             correct: 2
@@ -439,12 +439,12 @@ const QUESTIONS = {
             answers: ["Schienbein", "Oberschenkelknochen", "Oberarmknochen", "Wirbelsäule"],
             correct: 1
         },
-        {
-            question: "Welches Getränk wird aus Hopfen und Malz hergestellt?",
-            answers: ["Wein", "Whisky", "Bier", "Gin"],
-            correct: 2
-        },
         // === "Wer stiehlt mir die Show"-Style Fragen ===
+        {
+            question: "Wie viele Liter Blut hat ein erwachsener Mensch?",
+            answers: ["3–4", "5–6", "7–8", "9–10"],
+            correct: 1
+        },
         {
             question: "Welches Land hat die Form eines Stiefels?",
             answers: ["Spanien", "Griechenland", "Italien", "Portugal"],
@@ -486,9 +486,9 @@ const QUESTIONS = {
             correct: 2
         },
         {
-            question: "Welcher dieser Seen ist eigentlich ein Meer?",
-            answers: ["Bodensee", "Kaspisches Meer", "Gardasee", "Plattensee"],
-            correct: 1
+            question: "Welches dieser Gewässer ist eigentlich ein See?",
+            answers: ["Totes Meer", "Rotes Meer", "Schwarzes Meer", "Mittelmeer"],
+            correct: 0
         },
         {
             question: "Aus welchem Land kommt die Pizza Margherita?",
@@ -519,6 +519,21 @@ const QUESTIONS = {
             question: "Welches dieser Wörter steht NICHT im Duden?",
             answers: ["Ohrwurm", "Fingerspitzengefühl", "Blitzkrieg", "Schnapsidee"],
             correct: 2
+        },
+        {
+            question: "Wofür steht in der Schlafforschung die Abkürzung 'REM'?",
+            answers: ["Rapid Eye Movement", "Rest Energy Mode", "Relax Every Muscle", "Random Eye Motion"],
+            correct: 0
+        },
+        {
+            question: "Welches Gewürz kennt man auch als 'Gelben Ingwer'?",
+            answers: ["Safran", "Kurkuma", "Curry", "Kardamom"],
+            correct: 1
+        },
+        {
+            question: "Wofür steht 'TAN' beim Online-Banking?",
+            answers: ["Transfer Account Number", "Transaktions-Authentifizierungsnummer", "Total Access Number", "Temporary Auth Note"],
+            correct: 1
         }
     ]
 };
