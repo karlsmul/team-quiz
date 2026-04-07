@@ -535,5 +535,43 @@ const QUESTIONS = {
             answers: ["Transfer Account Number", "Transaktions-Authentifizierungsnummer", "Total Access Number", "Temporary Auth Note"],
             correct: 1
         }
+    ],
+
+    goodnews: [
+        {
+            question: "Welche Auferstehung gab es neben der von Jesus an Ostern auch zu feiern?",
+            answers: ["Biergärten Eröffnung", "60. Münchner Frühlingsfest", "Eisbachwelle"],
+            correct: 2
+        },
+        {
+            question: "Wer hat sich seit mehr als 50 Jahren erstmal auf den Weg zum Mond gemacht, so weit von der Erde entfernt wie bisher noch niemand?",
+            answers: ["Sozialbürgerhaus Nord", "Artemis 2 Crew", "Apollo 2 Crew"],
+            correct: 1
+        },
+        {
+            question: "Auf welchen Rang hat sich Deutschland 2026 im Glücks-Ranking verbessert?",
+            answers: ["Von Platz 10 auf 9", "Von Platz 22 auf 17", "Von Platz 25 auf 23"],
+            correct: 1
+        },
+        {
+            question: "Was gibt es ab Mai?",
+            answers: ["2,8 % mehr Lohn", "Sauna-Gutscheine", "Solarium-Gutscheine"],
+            correct: 0
+        },
+        {
+            question: "Seit 01. April ist die ....garten-Saison wieder offiziell eröffnet. Was fehlt?",
+            answers: ["Schani", "Scharni", "Charni"],
+            correct: 0
+        },
+        {
+            question: "Was findet am 29.05. statt?",
+            answers: ["Die Lange Nacht der SBH's", "Team Tag", "Fête de la Musique"],
+            correct: 1
+        },
+        {
+            question: "Wer oder was blüht gerade besonders schön?",
+            answers: ["Kirschblüten", "Lindenblüten", "Klient:innen"],
+            correct: 0
+        }
     ]
 };

@@ -7,7 +7,7 @@ let isLiveMode = false;
 let firebaseReady = false;
 
 // Game state
-let config = { timerSeconds: 10, questionCount: 10, categories: ['team', 'animals', 'cities', 'celebrities', 'custom'], teamRatio: 50 };
+let config = { timerSeconds: 10, questionCount: 10, categories: ['team', 'animals', 'cities', 'celebrities', 'custom', 'goodnews'], teamRatio: 50 };
 let gameQuestions = [];
 let currentQIndex = 0;
 let timerInterval = null;
@@ -175,7 +175,7 @@ function showLiveQuestion() {
 
     // Update header
     document.getElementById('question-number').textContent = `${currentQIndex + 1}/${gameQuestions.length}`;
-    const catLabels = { team: 'Team', animals: 'Tiere', cities: 'Städte', celebrities: 'Promis', custom: 'Allgemein' };
+    const catLabels = { team: 'Team', animals: 'Tiere', cities: 'Städte', celebrities: 'Promis', custom: 'Allgemein', goodnews: 'Good News' };
     document.getElementById('category-badge').textContent = catLabels[q.category] || q.category;
 
     updateAnswerCount();
@@ -720,7 +720,7 @@ function showOfflineQuestion() {
     switchScreen('quiz-screen');
 
     document.getElementById('question-number').textContent = `${currentQIndex + 1}/${gameQuestions.length}`;
-    const catLabels = { team: 'Team', animals: 'Tiere', cities: 'Städte', celebrities: 'Promis', custom: 'Allgemein' };
+    const catLabels = { team: 'Team', animals: 'Tiere', cities: 'Städte', celebrities: 'Promis', custom: 'Allgemein', goodnews: 'Good News' };
     document.getElementById('category-badge').textContent = catLabels[q.category] || q.category;
 
     // Show current player in answer-count area
