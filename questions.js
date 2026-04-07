@@ -540,11 +540,11 @@ const QUESTIONS = {
     goodnews: [
         {
             question: "Welche Auferstehung gab es neben der von Jesus an Ostern auch zu feiern?",
-            answers: ["Biergärten Eröffnung", "60. Münchner Frühlingsfest", "Eisbachwelle"],
+            answers: ["Biergärten-Eröffnung", "60. Münchner Frühlingsfest", "Eisbachwelle"],
             correct: 2
         },
         {
-            question: "Wer hat sich seit mehr als 50 Jahren erstmal auf den Weg zum Mond gemacht, so weit von der Erde entfernt wie bisher noch niemand?",
+            question: "Wer hat sich erstmals seit mehr als 50 Jahren auf den Weg zum Mond gemacht, so weit von der Erde entfernt wie bisher noch niemand?",
             answers: ["Sozialbürgerhaus Nord", "Artemis 2 Crew", "Apollo 2 Crew"],
             correct: 1
         },
@@ -565,13 +565,28 @@ const QUESTIONS = {
         },
         {
             question: "Was findet am 29.05. statt?",
-            answers: ["Die Lange Nacht der SBH's", "Team Tag", "Fête de la Musique"],
+            answers: ["Die Lange Nacht der SBHs", "Team Tag", "Fête de la Musique"],
             correct: 1
         },
         {
             question: "Wer oder was blüht gerade besonders schön?",
             answers: ["Kirschblüten", "Lindenblüten", "Klient:innen"],
             correct: 0
+        },
+        {
+            question: "\"Ich komm' gleich am Hauptbahnhof hier an, steig' ins Taxi, treffen uns am Strand...\" – Wer wird hier von Ennio besungen?",
+            answers: ["Spree", "Isar", "Donau"],
+            correct: 1
+        },
+        {
+            question: "Wie lang ist die Isar?",
+            answers: ["292 km", "346 km", "14 km"],
+            correct: 0
+        },
+        {
+            question: "Seit wann ist das Baden in der Isar in München wieder in größeren Teilen möglich?",
+            answers: ["Seit den 1970er Jahren durch neue Freibäder", "Seit den frühen 2000er Jahren nach der Renaturierung (Isar-Plan)", "Erst seit 2018 durch neue Sicherheitsregeln"],
+            correct: 1
         }
     ]
 };
