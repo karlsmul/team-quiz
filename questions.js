@@ -587,6 +587,21 @@ const QUESTIONS = {
             question: "Seit wann ist das Baden in der Isar in München wieder in größeren Teilen möglich?",
             answers: ["Seit den 1970er Jahren durch neue Freibäder", "Seit den frühen 2000er Jahren nach der Renaturierung (Isar-Plan)", "Erst seit 2018 durch neue Sicherheitsregeln"],
             correct: 1
+        },
+        {
+            question: "Wovon verschenkt die EU-Kommission mehr als 40.000 und knapp 7.000 davon für Deutschland?",
+            answers: ["Interrail-Tickets", "Hotel-Gutscheine", "Red-Bull-Dosen"],
+            correct: 0
+        },
+        {
+            question: "Wer stand kurz vor dem Aussterben, ist das größte lebende Landsäugetier Europas und kehrt nun offenbar zurück?",
+            answers: ["Europäischer Elefant", "Europäischer Bison", "Europäisches Rotrind"],
+            correct: 1
+        },
+        {
+            question: "Was können Steuerzahler ab Juli?",
+            answers: ["Steuer-Gutschein beantragen", "Steuererklärung per App versenden", "Steuer per App hinterziehen"],
+            correct: 1
         }
     ]
 };
